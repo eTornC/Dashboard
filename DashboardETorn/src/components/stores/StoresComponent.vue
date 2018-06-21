@@ -1,7 +1,7 @@
 <template>
   <div>
     Aqui stores
-		<new-store-component />
+		<new-store-component class="row mt-5 pt-2 ml-5" />
   </div>
 </template>
 

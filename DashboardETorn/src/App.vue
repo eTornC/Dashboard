@@ -4,10 +4,13 @@
 			<div class="navbar-brand mr-4">
 				eTorn!
 			</div>
-			<a class="nav-link active " href="/#/Stores">Parades</a>
+			<a class="nav-link active text-white" href="/#/Stores">Parades</a>
 			<a class="nav-link text-white" href="#">Dades</a>
     </nav>
-    <router-view/>
+
+
+
+    <router-view class="" />
   </div>
 </template>
 
