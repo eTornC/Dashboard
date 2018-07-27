@@ -1,15 +1,16 @@
 <template>
   <div id="app">
     <nav class="navbar bg-primary navbar-expand-lg navbar-dark py-2">
-			<div class="navbar-brand mr-4">
-				eTorn!
-			</div>
-			<a class="nav-link active text-white" href="/#/Stores">Parades</a>
-			<a class="nav-link text-white" href="#">Dades</a>
+			<a @click="$router.push('/')">
+        <div class="navbar-brand mr-4">
+          eTorn!
+        </div>
+      </a>
+			<a class="nav-link active text-white" @click="$router.push('/Stores')">Parades</a>
+			<a class="nav-link text-white">Dades</a>
+      <a class="nav-link text-white" @click="$router.push('/Config')">Configuració</a>
     </nav>
-
-
-
+    
     <router-view class="" />
   </div>
 </template>

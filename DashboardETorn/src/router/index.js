@@ -3,10 +3,12 @@ import Router from 'vue-router'
 
 import Main from '@/components/Main'
 import Stores from '@/components/stores/StoresComponent'
+import ConfigComponent from '@/components/ConfigComponent'
 
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
@@ -17,6 +19,11 @@ export default new Router({
       path: '/Stores',
       name: 'Stores',
       component: Stores
+    },
+    {
+      path: '/Config',
+      name: 'config',
+      component: ConfigComponent
     }
   ]
 })
