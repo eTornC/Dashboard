@@ -1,16 +1,25 @@
 <template>
   <div id="app">
     <nav class="navbar bg-primary navbar-expand-lg navbar-dark py-2">
+<<<<<<< HEAD
 			<div class="navbar-brand mr-4" @click="$router.push({ name: 'main', })">
 				eTorn!
 			</div>
 			<a class="nav-link active text-white" :href="$router.resolve({ name: 'stores' }).href">Parades</a>
 			<a class="nav-link text-white" href="/">Dades</a>
       <a class="nav-link text-white" :href="$router.resolve({ name: 'test' }).href">Testing</a>
+=======
+			<a @click="$router.push('/')">
+        <div class="navbar-brand mr-4">
+          eTorn!
+        </div>
+      </a>
+			<a class="nav-link active text-white" @click="$router.push('/Stores')">Parades</a>
+			<a class="nav-link text-white">Dades</a>
+      <a class="nav-link text-white" @click="$router.push('/Config')">Configuració</a>
+>>>>>>> f8485d044cd7b085772d452e50d3750b14fccc61
     </nav>
-
-
-
+    
     <router-view class="" />
   </div>
 </template>

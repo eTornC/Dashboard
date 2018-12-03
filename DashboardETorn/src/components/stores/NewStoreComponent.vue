@@ -24,8 +24,14 @@
 </template>
 
 <script>
+<<<<<<< HEAD
 import axios from 'axios';
 import urls from '../../api/config.js';
+=======
+
+import axios from 'axios'
+import config from '../../api/config'
+>>>>>>> f8485d044cd7b085772d452e50d3750b14fccc61
 
 export default {
 	data() {
@@ -37,6 +43,7 @@ export default {
 	},
 	methods: {
 		newStore() {
+<<<<<<< HEAD
 
 			let formData = new FormData();
 			formData.append('name', this.name);
@@ -49,6 +56,15 @@ export default {
 					this.$swal(JSON.stringify(res.data));
 				})
 
+=======
+			this.$swal('Aloha')
+
+			axios.post(config.host + config.routes.store, {
+				data: {
+					// Body
+				}
+			})
+>>>>>>> f8485d044cd7b085772d452e50d3750b14fccc61
 		},
 		fileListEvent(fileList) {
 			this.photoFile = fileList[0] 
