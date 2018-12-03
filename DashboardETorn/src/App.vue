@@ -1,11 +1,12 @@
 <template>
   <div id="app">
     <nav class="navbar bg-primary navbar-expand-lg navbar-dark py-2">
-			<div class="navbar-brand mr-4">
+			<div class="navbar-brand mr-4" @click="$router.push({ name: 'main', })">
 				eTorn!
 			</div>
-			<a class="nav-link active text-white" href="/#/Stores">Parades</a>
-			<a class="nav-link text-white" href="#">Dades</a>
+			<a class="nav-link active text-white" :href="$router.resolve({ name: 'stores' }).href">Parades</a>
+			<a class="nav-link text-white" href="/">Dades</a>
+      <a class="nav-link text-white" :href="$router.resolve({ name: 'test' }).href">Testing</a>
     </nav>
 
 
@@ -16,7 +17,10 @@
 
 <script>
   export default {
-    name: 'App'
+    name: 'App',
+    beforeCreate() {
+      console.log(this.$router.resolve({ name: 'stores' }))
+    }
   }
 </script>
 

@@ -1,5 +1,5 @@
 <template>
-	<div class="card container w-25">
+	<div class="card container">
 		<p class="h1 text-center mb-2 mt-3 title">Nova parada</p>
 		<form @submit.prevent="newStore()">
 
@@ -24,6 +24,9 @@
 </template>
 
 <script>
+import axios from 'axios';
+import urls from '../../api/config.js';
+
 export default {
 	data() {
 		return {
@@ -34,7 +37,18 @@ export default {
 	},
 	methods: {
 		newStore() {
-			this.$swal('Aloha')
+
+			let formData = new FormData();
+			formData.append('name', this.name);
+			formData.append('photoStore', this.photoFile);
+
+			const url = urls.host + urls.routes.prefix + urls.routes.store;
+
+			axios.post(url, formData)
+				.then(res => {
+					this.$swal(JSON.stringify(res.data));
+				})
+
 		},
 		fileListEvent(fileList) {
 			this.photoFile = fileList[0] 
