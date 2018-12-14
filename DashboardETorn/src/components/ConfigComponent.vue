@@ -48,7 +48,8 @@ export default {
         }
     },
     created() {
-        axios.get(config.host + config.routes.config)
+        const url = config.host + config.routes.prefix + config.routes.config
+        axios.get(url)
             .then(response => {
 
                 response.data.forEach(element => {
@@ -77,7 +78,10 @@ export default {
     },
     methods: {
         submit() {
-            axios.post(config.host + config.routes.config, {
+
+            const url = config.host + config.routes.prefix + config.routes.config
+
+            axios.post(url, {
                 data: {
                     params: this.params
                 }

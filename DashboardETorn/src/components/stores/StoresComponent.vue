@@ -1,92 +1,59 @@
 <template>
-<<<<<<< HEAD
-  <div class="px-5 py-5">
-		<div class="row">
-			<new-store-component class="col-md-4" />
+	<div class="px-5 py-5">
 
+		<div class="row mt-3 h-50 mb-5" >
 
-			<table class="col-md-6" style="border: 1px solid black">
-				<thead>
-					<th>ID</th>
-					<th>Nom</th>
-					<th>Foto</th>
-				</thead>
-				<tbody>
-					
-				</tbody>
-			</table>
-		</div>
+			<new-store-component class="col-md-4 ml-2 h-75" />
 
-		
+			<div class="col-md-7 ml-2 mr-3 ">
 
-=======
-  <div class="container">
-	<div class="row pt-2 mt-3 h-50 mb-5" >
-		
-		<new-store-component class="col-md-4 ml-2 h-75" />
+				<p class="title h2 mb-3">Parades</p> 	
 
-		<div class="col-md-6 ml-2 mr-3 ">
-			<p class="title h2 mb-3">Parades</p> 	
-			<table class="table table-bordered">
-				<thead>
-					<tr>
-						<th>Id</th>
-						<th>Nom</th>
-						<th>Foto </th>
-						<th>Accions </th>
-					</tr>
-				</thead>
-				<tbody>
-					<template v-for="store in stores">
-						<tr v-bind:key="store">
-							<td> {{ store.id }} </td>
-							<td> {{ store.name }} </td>
-							<td>
-								<img :src="store.photoPath" /> 
-							</td>
-							<td>
-								<button @click="updateStore(store)" class="btn btn-info">
-									Actualitza
-								</button>
-								<button @click="deleteStore(store)" class="btn btn-danger">
-									Elimina
-								</button>
-							</td>
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Nom</th>
+							<th>Foto </th>
+							<th>Accions</th>
 						</tr>
-					</template>
-				</tbody>
-			</table>
+					</thead>
+					<tbody>
+						<template v-for="store in stores">
+							<tr v-bind:key="store.id">
+								<td> {{ store.id }} </td>
+								<td> {{ store.name }} </td>
+								<td>
+									<img :src="config.host + config.routes.prefix + store.photopath" width="150px" /> 
+								</td>
+								<td>
+									<button @click="updateStore(store)" class="btn btn-info">
+										Actualitza
+									</button>
+									<button @click="deleteStore(store)" class="btn btn-danger">
+										Elimina
+									</button>
+								</td>
+							</tr>
+						</template>
+					</tbody>
+				</table>
+			</div>
 		</div>
 	</div>
->>>>>>> f8485d044cd7b085772d452e50d3750b14fccc61
-  </div>
 </template>
 
 <script>
-	import NewStoreComponent from './NewStoreComponent.vue'
-	
-	import axios from 'axios'
-	import config from '../../api/config'
+import NewStoreComponent from './NewStoreComponent.vue'
 
-<<<<<<< HEAD
-	export default {		
-		components: {
-			NewStoreComponent
-		},
-		beforeCreate() {
-
-			axios.get(config.routes.stores)
-				.then(res => {
-					
-				})
-=======
 import axios from 'axios'
 import config from '../../api/config'
 
 export default {
 	data() {
 		return {
-			stores: []
+			stores: [],
+			config
 		}
 	},		
 	components: {
@@ -97,28 +64,33 @@ export default {
 	},
 	methods: {
 		downloadStores() {
-			axios.get(config.host + config.routes.stores)
+
+			const url = config.host + config.routes.prefix + config.routes.stores;
+
+			axios.get(url)
 				.then((res) => {
-					this.stores = res.data
+					this.stores = res.data;
 				})
 				.catch(err => {
 					console.log('Fail')
 				})
 		},
 		deleteStore(store) {
-			axios.delete(config.host + config.routes.store + '/' + store.id) 
+
+			axios.delete(config.host + config.routes.prefix + config.routes.store + '/' + store.id) 
 				.then(res => {
 					if (res.data) {
 						this.$swal('Parada eliminada.');
 						this.downloadStores();
 					}
 				})
+		},
+		updateStore(store) {
+			this.$swal('Aloha')
 		}
 	}
->>>>>>> f8485d044cd7b085772d452e50d3750b14fccc61
 
-		}
-	}
+}
 </script>
 
 <style>
