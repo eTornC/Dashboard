@@ -9,14 +9,13 @@
           <button class="btn btn-primary">Add Col</button>
         </div>
       </div>
-      <div class="col-md-10 px-5 py-5" style="border: 1px solid black">
-        <!--div v-html="htmlGrid" class></div-->
-        <div v-if="jsonConfig.rows">
+      <!--div v-html="htmlGrid" class></div-->
+      <div v-if="jsonConfig.rows">
+        <div class="row px-3 py-3 mx-0" style="border: 1px solid black">
           <template v-for="(row, index) in jsonConfig.rows">
             <row :key="index" :jsonConfig="row"/>
           </template>
         </div>
-
       </div>
     </div>
   </div>
@@ -34,8 +33,6 @@ export default {
   data() {
     return {
       htmlGrid: "",
-      fruits: ["apple", "banana", "orange"],
-
       jsonConfig: {
         rows: [
           {
