@@ -10,29 +10,31 @@
         </div>
       </div>
       <div class="col-md-10 px-5 py-5" style="border: 1px solid black">
-        <div v-html="htmlGrid" class></div>
-
+        <!--div v-html="htmlGrid" class></div-->
         <div v-if="jsonConfig.rows">
-          <template v-for="row in jsonConfig.rows">
-            <row :key="row" :jsonConfig="row"/>
+          <template v-for="(row, index) in jsonConfig.rows">
+            <row :key="index" :jsonConfig="row"/>
           </template>
         </div>
-        <div v-else-if="jsonConfig.cols">
-          <template v-for="column in jsonConfig.column">
-            <column :key="column" :jsonConfig="column"/>
-          </template>
-        </div>
-        <div v-else>{{jsonConfig.content}}</div>
+
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import row from "./my-row.vue";
+import column from "./my-column.vue";
+
 export default {
+  components: {
+    row: row,
+    column: column
+  },
   data() {
     return {
       htmlGrid: "",
+      fruits: ["apple", "banana", "orange"],
 
       jsonConfig: {
         rows: [
