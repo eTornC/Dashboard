@@ -89,6 +89,9 @@ export default {
 				});
 		},
 		normalTurn() {
+
+			debugger;
+
 			const url = urls.host + urls.routes.prefix + urls.routes.store + '/' + this.store.id + '/turn';
 
 			axios.post(url)

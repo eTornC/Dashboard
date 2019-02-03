@@ -13,7 +13,7 @@
       
       <div class="col-md-10 px-5 py-5">
         <!--<grid-component :grid="jsonConfig"></grid-component>-->
-        <row-component-root :config="jsonConfig" class="px-3 py-3 mx-0" />
+        <row-component :config="jsonConfig" class="px-3 py-3 mx-0" />
       </div>
       
       <div class="row px-5 py-5 w-100" style="border: 1px solid black">
@@ -35,17 +35,8 @@
 
 <script>
 
-import RowComponent from './RowComponent.vue';
-
-import row from "./my-row.vue";
-import column from "./my-column.vue";
-
 export default {
-  components: {
-    'row-component-root': RowComponent,
-    row: row,
-    column: column
-  },
+  
   data() {
     return {
       htmlGrid: "",
