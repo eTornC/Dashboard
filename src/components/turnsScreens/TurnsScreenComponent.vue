@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="row">
+    <div class="row w-100">
       <div class="col-md-2 pt-4" style="border: 1px solid black">
         <div class="mb-3">
           <button class="btn btn-primary">Add Row</button>
@@ -9,51 +9,71 @@
           <button class="btn btn-primary">Add Col</button>
         </div>
       </div>
-      <div class="col-md-10 px-5 py-5" style="border: 1px solid black">
-        <div v-html="htmlGrid" class></div>
-
-        <div v-if="jsonConfig.rows">
-          <template v-for="row in jsonConfig.rows">
-            <row :key="row" :jsonConfig="row"/>
-          </template>
-        </div>
-        <div v-else-if="jsonConfig.cols">
-          <template v-for="column in jsonConfig.column">
-            <column :key="column" :jsonConfig="column"/>
-          </template>
-        </div>
-        <div v-else>{{jsonConfig.content}}</div>
+      
+      
+      <div class="col-md-10 px-5 py-5">
+        <!--<grid-component :grid="jsonConfig"></grid-component>-->
+        <row-component-root :config="jsonConfig" class="px-3 py-3 mx-0" />
       </div>
+      
+      <div class="row px-5 py-5 w-100" style="border: 1px solid black">
+        <span v-html="htmlGrid" class="w-100"></span>
+      </div>
+      
     </div>
   </div>
 </template>
 
 <script>
+
+import RowComponent from './RowComponent.vue';
+
 export default {
+  components: {
+    'row-component-root': RowComponent
+  },
   data() {
     return {
       htmlGrid: "",
 
       jsonConfig: {
-        rows: [
+        cols: [
           {
-            cols: [
+            width: 12,
+            rows: [
               {
-                width: 4,
-                content: "Aloha"
-              },
-              {
-                width: 4,
-                content: "Aloha"
-              },
-              {
-                width: 4,
-                rows: [
+                cols: [
                   {
-                    content: "Alo"
+                    width: 4,
+                    rows: [
+                      {
+                        content: 'fila1',
+                        
+                      },
+                      {
+                        content: 'fila2',
+                        
+                      },
+                      {
+                        content: 'fila3',
+                        
+                      },
+                    ]
                   },
                   {
-                    content: "Alo"
+                    width: 4,
+                    content: "Aloha",
+                  },
+                  {
+                    width: 4,
+                    rows: [
+                      {
+                        content: "Alo",
+                      },
+                      {
+                        content: "Alo",
+                      }
+                    ]
                   }
                 ]
               }
@@ -66,7 +86,7 @@ export default {
 
   mounted() {
     this.htmlGrid = this.generateGrid(this.jsonConfig);
-    console.log(this.htmlGrid);
+    //console.log(this.htmlGrid);
   },
 
   methods: {
@@ -74,14 +94,17 @@ export default {
       let htmlCode = "";
 
       if (jsonConfig.rows) {
+
         for (let i = 0; i < jsonConfig.rows.length; i++) {
           htmlCode += `<div class="row px-3 py-3 mx-0" style="border: 1px solid black">
 													${this.generateGrid(jsonConfig.rows[i])}
 												</div>`;
         }
-
+        
         return htmlCode;
+
       } else if (jsonConfig.cols) {
+
         for (let i = 0; i < jsonConfig.cols.length; i++) {
           htmlCode += `<div class="col-md-${
             jsonConfig.cols[i].width
