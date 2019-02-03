@@ -18,6 +18,15 @@
       
       <div class="row px-5 py-5 w-100" style="border: 1px solid black">
         <span v-html="htmlGrid" class="w-100"></span>
+      <!--div v-html="htmlGrid" class></div-->
+      </div>
+
+      <div v-if="jsonConfig.rows">
+        <div class="row px-3 py-3 mx-0" style="border: 1px solid black">
+          <template v-for="(row, index) in jsonConfig.rows">
+            <row :key="index" :jsonConfig="row"/>
+          </template>
+        </div>
       </div>
       
     </div>
@@ -28,14 +37,18 @@
 
 import RowComponent from './RowComponent.vue';
 
+import row from "./my-row.vue";
+import column from "./my-column.vue";
+
 export default {
   components: {
-    'row-component-root': RowComponent
+    'row-component-root': RowComponent,
+    row: row,
+    column: column
   },
   data() {
     return {
       htmlGrid: "",
-
       jsonConfig: {
         cols: [
           {
