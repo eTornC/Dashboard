@@ -3,22 +3,21 @@
     <div class="row w-100">
       <div class="col-md-2 pt-4" style="border: 1px solid black">
         <div class="mb-3">
-          <button class="btn btn-primary">Add Row</button>
+          <button @click="addRow" class="btn btn-primary">Add Row</button>
         </div>
         <div class="mb-3">
-          <button class="btn btn-primary">Add Col</button>
+          <button @click="addCol" class="btn btn-primary">Add Col</button>
         </div>
       </div>
-      
-      
+
       <div class="col-md-10 px-5 py-5">
         <!--<grid-component :grid="jsonConfig"></grid-component>-->
-        <row-component :config="jsonConfig" class="px-3 py-3 mx-0" />
+        <row-component :config="jsonConfig" class="px-3 py-3 mx-0"/>
       </div>
-      
+
       <div class="row px-5 py-5 w-100" style="border: 1px solid black">
         <span v-html="htmlGrid" class="w-100"></span>
-      <!--div v-html="htmlGrid" class></div-->
+        <!--div v-html="htmlGrid" class></div-->
       </div>
 
       <div v-if="jsonConfig.rows">
@@ -28,58 +27,32 @@
           </template>
         </div>
       </div>
-      
     </div>
   </div>
 </template>
 
 <script>
-
 export default {
-  
   data() {
     return {
       htmlGrid: "",
       jsonConfig: {
         cols: [
           {
-            width: 12,
+            width: 6,
+            content: "Aloha",
+            id: 1
+          },
+          {
+            width: 6,
             rows: [
               {
-                cols: [
-                  {
-                    width: 4,
-                    rows: [
-                      {
-                        content: 'fila1',
-                        
-                      },
-                      {
-                        content: 'fila2',
-                        
-                      },
-                      {
-                        content: 'fila3',
-                        
-                      },
-                    ]
-                  },
-                  {
-                    width: 4,
-                    content: "Aloha",
-                  },
-                  {
-                    width: 4,
-                    rows: [
-                      {
-                        content: "Alo",
-                      },
-                      {
-                        content: "Alo",
-                      }
-                    ]
-                  }
-                ]
+                content: "Alo",
+                id: 3
+              },
+              {
+                content: "Alo",
+                id: 2
               }
             ]
           }
@@ -98,17 +71,14 @@ export default {
       let htmlCode = "";
 
       if (jsonConfig.rows) {
-
         for (let i = 0; i < jsonConfig.rows.length; i++) {
           htmlCode += `<div class="row px-3 py-3 mx-0" style="border: 1px solid black">
 													${this.generateGrid(jsonConfig.rows[i])}
 												</div>`;
         }
-        
+
         return htmlCode;
-
       } else if (jsonConfig.cols) {
-
         for (let i = 0; i < jsonConfig.cols.length; i++) {
           htmlCode += `<div class="col-md-${
             jsonConfig.cols[i].width
@@ -124,7 +94,11 @@ export default {
     },
 
     addCol() {},
-    addRow() {}
+    addRow() {
+      this.jsonConfig.cols[0].rows.push({
+        content: "Alo"
+      });
+    }
   }
 };
 </script>
