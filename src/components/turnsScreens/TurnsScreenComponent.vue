@@ -19,7 +19,6 @@
         <span v-html="htmlGrid" class="w-100"></span>
         <div v-html="htmlGrid" class></div>
       </div-->
-
       <div v-if="jsonConfig.rows">
         <div class="row px-3 py-3 mx-0" style="border: 1px solid black">
           <template v-for="(row, index) in jsonConfig.rows">
@@ -39,18 +38,33 @@ export default {
       jsonConfig: {
         cols: [
           {
-            width: 6,
-            id: 1
-          },
-          {
-            width: 6,
+            width: 12,
             rows: [
               {
                 id: 3
               },
               {
-                id: 2
-              }
+                cols: [
+                  {
+                    width: 6,
+                    id: 1
+                  },
+                  {
+                    width: 6,
+                    rows: [
+                      {
+                        id: 3
+                      },
+                      {
+                        id: 2
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                id: 4
+              },
             ]
           }
         ]
