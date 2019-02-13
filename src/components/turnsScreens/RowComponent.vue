@@ -10,8 +10,12 @@
     </template>
   </div>
   <div v-else style="border: 1px solid black" class="px-3 py-3">
-    <span>{{config.id}}</span>
-    <content-component :store="stores"/>
+    <!-- solucio del que el store es null utilitza el v-for por pasar objecta.
+      si pasar el strores directamente es null
+    -->
+    <template v-for="store in stores" >
+			<content-component :key="store.name" :store="store"/>
+		</template>
   </div>
 </template>
 
@@ -33,28 +37,31 @@ export default {
       ev.target.style.backgroundColor =
         "#" + (((1 << 24) * Math.random()) | 0).toString(16);
     },
-    getStore() {}
-  },
-  created() {
-    if (this.config.id != null) {
-      const url =
-        urls.host +
-        urls.routes.prefix +
-        urls.routes.store +
-        "/" +
-        this.config.id;
-      console.log(url);
+    getStore() {
+      if (this.config.id != null) {
+        const url =
+          urls.host +
+          urls.routes.prefix +
+          urls.routes.store +
+          "/" +
+          this.config.id;
+        console.log(url);
 
-      axios
-        .get(url)
-        .then(res => {
-          this.stores = res.data[0];
-         // console.log(this.stores);
-        })
-        .catch(err => {
-          console.error(err);
-        });
+        axios
+          .get(url)
+          .then(res => {
+            this.stores = res.data;
+          })
+          .catch(err => {
+            console.error(err);
+          });
+      }
     }
+  },
+  mounted() {},
+  created() {
+    this.getStore();
+
   }
 };
 </script>

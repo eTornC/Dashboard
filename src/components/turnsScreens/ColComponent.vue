@@ -5,8 +5,9 @@
     </template>
   </div>
   <div v-else style="border: 1px solid black" class="px-3 py-3">
-    <span>{{config.id}}</span>
-    <content-component :store="stores"/>
+   <template v-for="store in stores" >
+			<content-component :key="store.name" :store="store"/>
+		</template>
   </div>
 </template>
 
@@ -36,11 +37,12 @@ export default {
         urls.routes.store +
         "/" +
         this.config.id;
+      console.log(url);
 
       axios
         .get(url)
         .then(res => {
-          this.stores = res.data[0];
+          this.stores = res.data;
           //console.log(this.stores);
         })
         .catch(err => {

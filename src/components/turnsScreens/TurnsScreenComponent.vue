@@ -15,10 +15,10 @@
         <row-component :config="jsonConfig" class="px-3 py-3 mx-0"/>
       </div>
 
-      <div class="row px-5 py-5 w-100" style="border: 1px solid black">
+      <!--div class="row px-5 py-5 w-100" style="border: 1px solid black">
         <span v-html="htmlGrid" class="w-100"></span>
-        <!--div v-html="htmlGrid" class></div-->
-      </div>
+        <div v-html="htmlGrid" class></div>
+      </div-->
 
       <div v-if="jsonConfig.rows">
         <div class="row px-3 py-3 mx-0" style="border: 1px solid black">
@@ -40,18 +40,15 @@ export default {
         cols: [
           {
             width: 6,
-            content: "Aloha",
             id: 1
           },
           {
             width: 6,
             rows: [
               {
-                content: "Alo",
                 id: 3
               },
               {
-                content: "Alo",
                 id: 2
               }
             ]
