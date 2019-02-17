@@ -5,9 +5,11 @@
     </template>
   </div>
   <div v-else style="border: 1px solid black" class="px-3 py-3">
-   <template v-for="store in stores" >
-			<content-component :key="store.name" :store="store"/>
-		</template>
+    <div class="turnBox">
+      <template v-for="store in stores">
+        <content-component :key="store.name" :store="store"/>
+      </template>
+    </div>
   </div>
 </template>
 
@@ -52,4 +54,13 @@ export default {
   }
 };
 </script>
+
+<style>
+.turnBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+</style>
 

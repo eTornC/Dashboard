@@ -6,16 +6,18 @@
     style="border: 1px solid black"
   >
     <template v-for="(col, index) in config.cols">
-      <col-component :class="'px-3 py-3 mx-0 col-md-' + col.width" :config="col" :key="index"/>
+      <col-component :class="' px-3 py-3 mx-0 col-md-' + col.width" :config="col" :key="index"/>
     </template>
   </div>
   <div v-else style="border: 1px solid black" class="px-3 py-3">
     <!-- solucio del que el store es null utilitza el v-for por pasar objecta.
       si pasar el strores directamente es null
     -->
-    <template v-for="store in stores" >
-			<content-component :key="store.name" :store="store"/>
-		</template>
+    <div class="turnBox">
+      <template v-for="store in stores">
+        <content-component :key="store.name" :store="store"/>
+      </template>
+    </div>
   </div>
 </template>
 
@@ -61,8 +63,15 @@ export default {
   mounted() {},
   created() {
     this.getStore();
-
   }
 };
 </script>
 
+<style>
+.turnBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+</style>
