@@ -1,41 +1,33 @@
 <template>
-  <div>
-    <div class="row w-100">
-      <div class="col-md-2 pt-4" style="border: 1px solid black">
-        <div class="mb-3">
-          <button @click="addRow" class="btn btn-primary">Add Row</button>
-        </div>
-        <div class="mb-3">
-          <button @click="addCol" class="btn btn-primary">Add Col</button>
-        </div>
-      </div>
-
-      <div class="col-md-10 px-5 py-5">
+  <!--div-->
+      <div class="col-md-12">
         <!--<grid-component :grid="jsonConfig"></grid-component>-->
         <row-component :config="jsonConfig" class="px-3 py-3 mx-0"/>
       </div>
-
       <!--div class="row px-5 py-5 w-100" style="border: 1px solid black">
         <span v-html="htmlGrid" class="w-100"></span>
         <div v-html="htmlGrid" class></div>
       </div-->
-      <div v-if="jsonConfig.rows">
+      <!--div v-if="jsonConfig.rows">
         <div class="row px-3 py-3 mx-0" style="border: 1px solid black">
           <template v-for="(row, index) in jsonConfig.rows">
             <row :key="index" :jsonConfig="row"/>
           </template>
         </div>
       </div>
-    </div>
-  </div>
+    </div-->
 </template>
 
 <script>
 export default {
+  //per agafar data externa.
+  props: {
+    jsonConfig: Object
+  },
   data() {
     return {
-      htmlGrid: "",
-      jsonConfig: {
+      /*jsonConfig: {
+        name:"pantalla1",
         cols: [
           {
             width: 12,
@@ -68,7 +60,7 @@ export default {
             ]
           }
         ]
-      }
+      }*/
     };
   },
 
@@ -103,14 +95,9 @@ export default {
         return jsonConfig.content;
       }
     },
-
-    addCol() {},
-    addRow() {
-      this.jsonConfig.cols[0].rows.push({
-        content: "Alo"
-      });
-    }
   }
 };
 </script>
+
+
 

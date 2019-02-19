@@ -1,5 +1,5 @@
 <template>
-  <div style="border: 1px solid black" @click="select" v-if="config.rows" class="px-3 py-3">
+  <div style="border: 1px solid black"  v-if="config.rows" class="px-3 py-3">
     <template v-for="(row, index) in config.rows">
       <row-component :config="row" :key="index"/>
     </template>
@@ -39,7 +39,7 @@ export default {
         urls.routes.store +
         "/" +
         this.config.id;
-      console.log(url);
+      //console.log(url);
 
       axios
         .get(url)

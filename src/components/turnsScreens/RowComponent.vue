@@ -1,7 +1,6 @@
 <template>
   <div
     class="row w-100 py-3 px-3 mx-0"
-    @click="select"
     v-if="config.cols"
     style="border: 1px solid black"
   >
@@ -47,7 +46,7 @@ export default {
           urls.routes.store +
           "/" +
           this.config.id;
-        console.log(url);
+        //console.log(url);
 
         axios
           .get(url)

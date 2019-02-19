@@ -1,6 +1,6 @@
 <template>
   <div class="store_pantalla my-2 mx-2">
-    <h1 class="mb-3 mt-2">Torns {{store.name}}</h1>
+    <h1 class="mb-3 mt-2">{{store.name}}</h1>
     <h3 class="mb-1">Torn Actual: {{computedActualTurn}}</h3>
   </div>
 </template>
@@ -60,11 +60,10 @@ export default {
     }
   },
   created() {
-
-    console.log(this.store);
-
-     this.updateActualTurn();
-    // this.resfescar = setInterval(this.updateActualTurn, 1000);
+    //console.log(this.store);
+    this.resfescar=null;
+    this.updateActualTurn();
+    //this.resfescar = setInterval(this.updateActualTurn, 1000);
   }
 };
 </script>
