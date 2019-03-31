@@ -8,8 +8,8 @@
 			<a class="nav-link text-white" href="/">Dades</a>
       <a class="nav-link text-white" @click="$router.push({ name: 'test' }).href">Testing</a>
       <a class="nav-link text-white" @click="$router.push('/Config')">Configuració</a>
-      <a class="nav-link text-white" @click="$router.push('/screenManager')">Gestio de Pantalles de torns</a>
-      <a class="nav-link text-white" @click="$router.push('/turns-screens-show')">Mostra de Pantalles de torns</a>
+      <a class="nav-link text-white" @click="$router.push('/turnScreenManager')">Gestio de Pantalles de torns</a>
+      <a class="nav-link text-white" @click="$router.push('/totemScreenManager')">Gestio de Pantalles de totem</a>
     </nav>
     
     <router-view class="" />
