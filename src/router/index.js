@@ -10,6 +10,7 @@ import totemScreenManager from '@/components/managerTotemScreen/screenManager.vu
 
 import TurnsScreenPanet from '@/components/managerTurnScreen/ScreenManagerPanet.vue';
 import TurnsScreenShow from '@/components/turnsScreens/screenSelect.vue';
+import templateTest from '@/components/templateTest.vue';
 export default new Router({
   //mode: 'history',
   routes: [
@@ -47,6 +48,11 @@ export default new Router({
       path: '/totemScreenManager',
       name: 'totemScreenManager',
       component: totemScreenManager
+    },
+    {
+      path: '/templateTest',
+      name: 'templateTest',
+      component: templateTest
     },
     /*{
       path: '/turns-screens-panet',

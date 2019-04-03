@@ -17,6 +17,7 @@ host: 'http://labs.iam.cat',
     apiPrefix:'/~a15zehcheche/eTorn/api.php/records',
     
     //prefix: '/eTorn',
+    //prefix: '/~a16josortmar/eTorn',
     prefix: '/~a16josortmar/eTorn',
 
 
