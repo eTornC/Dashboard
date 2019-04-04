@@ -10,6 +10,7 @@
       <a class="nav-link text-white" @click="$router.push('/Config')">Configuració</a>
       <a class="nav-link text-white" @click="$router.push('/turnScreenManager')">Gestio de Pantalles de torns</a>
       <a class="nav-link text-white" @click="$router.push('/totemScreenManager')">Gestio de Pantalles de totem</a>
+      <a class="nav-link text-white" @click="$router.push('/templateTest')">Template Testing</a>
     </nav>
     
     <router-view class="" />
