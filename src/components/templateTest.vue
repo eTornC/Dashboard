@@ -1,27 +1,31 @@
 <template>
   <div class="container">
     <h1>Testing</h1>
+    <div class="row">{{menssage}}</div>
     <div class="row">
-      <h3>Exemple: <small
-        class="text-muted"
-      >{ "height": "100", "cols": [ { "height": "100", "width": 12, "rows": [ { "height": "100", "cols": [ { "height": "100", "width": 6, "id": 1 }, { "height": "100", "width": 6, "id": 1 } ] } ] } ] }</small>
-    </h3>
+      <h3>
+        Exemple:
+        <small
+          class="text-muted"
+        >{ "height": "100", "cols": [ { "height": "100", "width": 12, "rows": [ { "height": "100", "cols": [ { "height": "100", "width": 6, "id": 1 }, { "height": "100", "width": 6, "id": 1 } ] } ] } ] }</small>
+      </h3>
     </div>
     <div class="row">
       <div class="col showLayout">
-        <screen-demo-component v-if="templateLayout" :jsonConfig="JSON.parse(templateLayout)"/>
+        <screen-demo-component v-if="templateLayout" :jsonConfig="templateLayout"/>
       </div>
       <div class="col">
         <textarea
-          :class="{ 'correct': valid, 'error': !valid }"
+          :class="{ 'correct': isValid, 'error': !isValid }"
           class="jsonCode"
           rows="4"
           cols="60"
           v-model="layoutInput"
-          v-on:keyup="updateJson"
+          v-on:keyup="clearTemplate"
         ></textarea>
       </div>
     </div>
+    <button @click="isValidLayout">Validar</button>
     <button @click="formateJson">fortamte</button>
     <button @click="checkJsonCode">generate</button>
   </div>
@@ -39,8 +43,9 @@ export default {
     return {
       templateLayout: null,
       layoutInput: null,
-      valid: true,
-      newScreenLayout: ""
+      isValid: true,
+      newScreenLayout: "",
+      menssage: "hola"
     };
   },
 
@@ -56,6 +61,9 @@ export default {
         this.templateLayout = null;
       }
     },
+    clearTemplate: function() {
+      this.templateLayout = null;
+    },
     IsValidJSONString: function(str) {
       try {
         JSON.parse(str);
@@ -68,6 +76,75 @@ export default {
       if (this.IsValidJSONString(this.layoutInput)) {
         this.layoutInput = JSON.parse(this.layoutInput);
         this.layoutInput = JSON.stringify(this.layoutInput, null, 4); // stringify with 4 spaces at each level
+      }
+    },
+    isValidLayout: function() {
+      if (this.IsValidJSONString(this.layoutInput)) {
+        this.isValid = true;
+        this.layoutInput = JSON.parse(this.layoutInput);
+        if (this.layoutInput.cols || this.layoutInput.rows) {
+          this.jsonLayoutValidator(this.layoutInput);
+        } else {
+          this.menssage = "No hiha cols or rows";
+        }
+        if (this.isValid) {
+          this.templateLayout = this.layoutInput;
+          this.layoutInput = JSON.stringify(this.layoutInput, null, "\t");
+        } else {
+          this.layoutInput = JSON.stringify(this.layoutInput);
+        }
+        //this.layoutInput = JSON.stringify(this.layoutInput, null, "\t");
+        //this.layoutInput = JSON.stringify(this.layoutInput);
+      } else {
+        this.isValid = false;
+        this.templateLayout = null;
+        this.menssage = "Error, is not json String!";
+      }
+    },
+    jsonLayoutValidator: function(newLayout) {
+      console.log("Check layout");
+      if (newLayout.rows) {
+        if (Array.isArray(newLayout.rows) && newLayout.rows.length > 0) {
+          if (newLayout.height && newLayout.width && this.isValid) {
+            for (let i = 0; i < newLayout.rows.length; i++) {
+              this.jsonLayoutValidator(newLayout.rows[i]);
+            }
+          } else {
+            this.isValid = false;
+            this.menssage = "this rows object need 'height' and 'width'.";
+          }
+        } else {
+          this.isValid = false;
+          this.menssage = "this rows is not Array or is empty";
+        }
+      } else if (newLayout.cols) {
+        if (Array.isArray(newLayout.cols) && newLayout.cols.length > 0) {
+          if (newLayout.height && this.isValid) {
+            for (let i = 0; i < newLayout.cols.length; i++) {
+              this.jsonLayoutValidator(newLayout.cols[i]);
+            }
+          } else {
+            this.isValid = false;
+            this.menssage = "this cols object need 'height'.";
+          }
+        } else {
+          this.isValid = false;
+          this.menssage = "this cols is not Array or is empty";
+        }
+      } else {
+        if (
+          newLayout.height &&
+          newLayout.width &&
+          newLayout.id &&
+          this.isValid &&
+          this.IsValidJSONString(JSON.stringify(newLayout))
+        ) {
+          this.menssage = "OK";
+        } else {
+          this.isValid = false;
+          this.menssage =
+            "cols and rows array to be object, this object need 'height','width' adn 'id'";
+        }
       }
     },
     checkJsonCode: function() {
