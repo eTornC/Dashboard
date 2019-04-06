@@ -102,48 +102,64 @@ export default {
       }
     },
     jsonLayoutValidator: function(newLayout) {
-      console.log("Check layout");
-      if (newLayout.rows) {
-        if (Array.isArray(newLayout.rows) && newLayout.rows.length > 0) {
-          if (newLayout.height && newLayout.width && this.isValid) {
-            for (let i = 0; i < newLayout.rows.length; i++) {
-              this.jsonLayoutValidator(newLayout.rows[i]);
+      //console.log("Check layout");
+      if (this.isValid) {
+        if (newLayout.rows) {
+          if (Array.isArray(newLayout.rows) && newLayout.rows.length > 0) {
+            if (newLayout.height && newLayout.width && this.isValid) {
+              let countHeight = 0;
+              for (let i = 0; i < newLayout.rows.length; i++) {
+                this.jsonLayoutValidator(newLayout.rows[i]);
+                countHeight += parseInt(newLayout.rows[i].height);
+              }
+              //console.log("height:" + countHeight);
+              if (countHeight != 100) {
+                this.isValid = false;
+                this.menssage = "height no add to 100";
+              }
+            } else {
+              this.isValid = false;
+              this.menssage = "this rows object need 'height' and 'width'.";
             }
           } else {
             this.isValid = false;
-            this.menssage = "this rows object need 'height' and 'width'.";
+            this.menssage = "this rows is not Array or is empty";
           }
-        } else {
-          this.isValid = false;
-          this.menssage = "this rows is not Array or is empty";
-        }
-      } else if (newLayout.cols) {
-        if (Array.isArray(newLayout.cols) && newLayout.cols.length > 0) {
-          if (newLayout.height && this.isValid) {
-            for (let i = 0; i < newLayout.cols.length; i++) {
-              this.jsonLayoutValidator(newLayout.cols[i]);
+        } else if (newLayout.cols) {
+          if (Array.isArray(newLayout.cols) && newLayout.cols.length > 0) {
+            if (newLayout.height && this.isValid) {
+              let countWidth = 0;
+              for (let i = 0; i < newLayout.cols.length; i++) {
+                this.jsonLayoutValidator(newLayout.cols[i]);
+                countWidth += parseInt(newLayout.cols[i].width);
+              }
+              //console.log("width:" + countWidth);
+              if (countWidth != 12) {
+                this.isValid = false;
+                this.menssage = "width no add to 12";
+              }
+            } else {
+              this.isValid = false;
+              this.menssage = "this cols object need 'height'.";
             }
           } else {
             this.isValid = false;
-            this.menssage = "this cols object need 'height'.";
+            this.menssage = "this cols is not Array or is empty";
           }
         } else {
-          this.isValid = false;
-          this.menssage = "this cols is not Array or is empty";
-        }
-      } else {
-        if (
-          newLayout.height &&
-          newLayout.width &&
-          newLayout.id &&
-          this.isValid &&
-          this.IsValidJSONString(JSON.stringify(newLayout))
-        ) {
-          this.menssage = "OK";
-        } else {
-          this.isValid = false;
-          this.menssage =
-            "cols and rows array to be object, this object need 'height','width' adn 'id'";
+          if (
+            newLayout.height &&
+            newLayout.width &&
+            newLayout.id &&
+            this.isValid &&
+            this.IsValidJSONString(JSON.stringify(newLayout))
+          ) {
+            this.menssage = "OK";
+          } else {
+            this.isValid = false;
+            this.menssage =
+              "cols and rows array to be object, this object need 'height','width' adn 'id'";
+          }
         }
       }
     },
