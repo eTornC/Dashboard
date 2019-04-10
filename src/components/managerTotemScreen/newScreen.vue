@@ -42,45 +42,14 @@
           <button @click="$emit('input', 'home');" type="button" class="btn btn-danger">Cancelar</button>
         </div>
         <div class="save">
-          <button @click="save()" type="button" class="btn btn-primary">Guardar</button>
+          <button
+            @click="save();"
+            type="button"
+            class="btn btn-primary"
+          >Guardar</button>
         </div>
       </div>
     </div>
-
-    <!--div v-if="templateSelect" class="form">
-      <div class="form-group row">
-        <label class="col-sm-5 col-form-label">Plantilla selectionado</label>
-        <div class="col-sm-5">
-          <label for="staticEmail">{{templateSelect.NAME}}</label>
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="inputPassword" class="col-sm-2 col-form-label">Nom</label>
-        <div class="col-sm-8">
-          <input
-            required="required"
-            v-model="newName"
-            type="text"
-            class="form-control"
-            placeholder="nuevo nombre"
-          >
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="inputPassword" class="col-sm-2 col-form-label">Descripcion</label>
-        <div class="col-sm-8">
-          <input
-            required="required"
-            v-model="description"
-            type="text"
-            class="form-control"
-            placeholder
-          >
-        </div>
-        <button @click="save()" class="btn btn-primary mb-2">Guardar</button>
-      </div>
-    </div-->
-
     <div v-else-if="model === 'select'" class="templateContent">
       <div
         class="template"
@@ -189,6 +158,13 @@ export default {
             console.log(response);
             reference.templateSelect = null;
             reference.model = "select";
+            swal.fire({
+              position: "top-end",
+              type: "success",
+              title: "Pantalla creada",
+              showConfirmButton: false,
+              timer: 1500
+            });
           })
           .catch(function(error) {
             console.log(error);
@@ -332,7 +308,8 @@ export default {
 };
 </script>
 
-<style scoped>
+ <style scoped>
+
 .templateContent {
   display: flex;
   flex-wrap: wrap;
@@ -349,6 +326,7 @@ export default {
   -webkit-box-shadow: 2px 1px 10px 2px rgba(0, 0, 0, 0.5);
   -moz-box-shadow: 2px 1px 10px 2px rgba(0, 0, 0, 0.5);
   box-shadow: 2px 1px 10px 2px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
 }
 .template header {
   height: 15%;

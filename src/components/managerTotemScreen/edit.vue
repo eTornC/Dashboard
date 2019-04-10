@@ -28,6 +28,8 @@
 import axios from "axios";
 import urls from "../../api/config.js";
 //import $ from "../assets/jquery.js";
+import swal from "sweetalert2";
+
 
 global.jQuery = require("jQuery");
 var $ = global.jQuery;
@@ -252,6 +254,13 @@ export default {
         .then(function(response) {
           console.log(response);
           reference.templateSelect = null;
+           swal.fire({
+            position: "top-end",
+            type: "success",
+            title: "Tu cambio ha guardado",
+            showConfirmButton: false,
+            timer: 1500
+          });
         })
         .catch(function(error) {
           console.log(error);

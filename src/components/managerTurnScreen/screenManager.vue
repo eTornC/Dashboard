@@ -184,7 +184,7 @@ export default {
 };
 </script>
 
-<style>
+<style >
 /*main layout*/
 .app {
   width: 100%;
@@ -221,6 +221,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
 
 /* Screen */
@@ -262,6 +263,7 @@ export default {
   margin: 0 10px;
   width: 80%;
   height: 80%;
+  cursor: pointer;
 }
 .screen .content {
   height: 85%;

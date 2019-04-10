@@ -186,7 +186,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 /*main layout*/
 .app {
   width: 100%;
@@ -259,13 +259,14 @@ export default {
   margin: 0 10px;
   width: 80%;
   height: 80%;
+  cursor: pointer;
 }
 .screen .content {
   height: 85%;
   width: 100%;
   margin: 0%;
 }
-.optionIcon{
+.optionIcon {
   height: 100%;
 }
 </style>
