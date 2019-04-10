@@ -9,7 +9,9 @@
       <div class="content">
         <div class="info">
           <div class="form-group row">
-            <h1 class="col-sm-2 col-form-label">Nom</h1>
+            <div class="col-sm-2">
+              <h1 class=" col-form-label">Nom</h1>
+            </div>
             <div class="col-sm-10">
               <input
                 required="required"
@@ -21,7 +23,9 @@
             </div>
           </div>
           <div class="form-group row">
-            <h1 class="col-sm-2 col-form-label">Descripcion</h1>
+            <div class="col-sm-2">
+              <h1 class=" col-form-label">Descripcion</h1>
+            </div>
             <div class="col-sm-10">
               <input
                 required="required"
@@ -42,11 +46,7 @@
           <button @click="$emit('input', 'home');" type="button" class="btn btn-danger">Cancelar</button>
         </div>
         <div class="save">
-          <button
-            @click="save();"
-            type="button"
-            class="btn btn-primary"
-          >Guardar</button>
+          <button @click="save();" type="button" class="btn btn-primary">Guardar</button>
         </div>
       </div>
     </div>
@@ -309,7 +309,6 @@ export default {
 </script>
 
  <style scoped>
-
 .templateContent {
   display: flex;
   flex-wrap: wrap;
@@ -343,6 +342,7 @@ export default {
 }
 .template .content {
   height: 85%;
+  width: 100%;
   margin: 0%;
 }
 

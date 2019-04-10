@@ -184,7 +184,7 @@ export default {
 };
 </script>
 
-<style >
+<style scoped>
 /*main layout*/
 .app {
   width: 100%;
@@ -195,15 +195,6 @@ export default {
 .screenConten {
   display: flex;
   flex-wrap: wrap;
-}
-.screen {
-  width: 450px;
-  height: 400px;
-  background-color: #999;
-  margin: 10px auto;
-  -webkit-box-shadow: 2px 1px 10px 2px rgba(0, 0, 0, 0.5);
-  -moz-box-shadow: 2px 1px 10px 2px rgba(0, 0, 0, 0.5);
-  box-shadow: 2px 1px 10px 2px rgba(0, 0, 0, 0.5);
 }
 
 .turnScreenBottom {
@@ -221,7 +212,6 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
 }
 
 /* Screen */
@@ -232,6 +222,10 @@ export default {
   position: relative;
   border-radius: 5px;
   overflow: hidden;
+  margin: 10px auto;
+  -webkit-box-shadow: 2px 1px 10px 2px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 2px 1px 10px 2px rgba(0, 0, 0, 0.5);
+  box-shadow: 2px 1px 10px 2px rgba(0, 0, 0, 0.5);
 }
 .screen header {
   height: 15%;
@@ -267,6 +261,10 @@ export default {
 }
 .screen .content {
   height: 85%;
+  width: 100%;
   margin: 0%;
+}
+.optionIcon {
+  height: 100%;
 }
 </style>
