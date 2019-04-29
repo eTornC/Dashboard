@@ -1,5 +1,5 @@
 <template>
-  <div style="border: 1px solid black"  v-if="config.rows" class="px-3 py-3">
+  <div style="border: 1px solid black" v-if="config.rows" class="px-3 py-3">
     <template v-for="(row, index) in config.rows">
       <row-component :config="row" :key="index"/>
     </template>
@@ -26,7 +26,7 @@ export default {
     };
   },
   methods: {
-    select(ev) {
+    select_Color(ev) {
       ev.target.style.backgroundColor =
         "#" + (((1 << 24) * Math.random()) | 0).toString(16);
     }

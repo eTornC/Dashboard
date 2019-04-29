@@ -11,10 +11,9 @@ import totemScreenManager from '@/components/managerTotemScreen/screenManager.vu
 import TurnsScreenPanet from '@/components/managerTurnScreen/ScreenManagerPanet.vue';
 import TurnsScreenShow from '@/components/turnsScreens/screenSelect.vue';
 
-//tmp
-import LayoutValidator from '@/components/layoutValidator.vue';
-
 import templateTest from '@/components/templateTest.vue';
+import LayoutCreator from '@/components/LayoutCreator/main.vue';
+
 export default new Router({
   //mode: 'history',
   routes: [
@@ -54,14 +53,14 @@ export default new Router({
       component: totemScreenManager
     },
     {
-      path: '/layoutValidator',
-      name: 'layoutValidator',
-      component: LayoutValidator
-    },
-    {
       path: '/templateTest',
       name: 'templateTest',
       component: templateTest
+    },
+    {
+      path: '/layoutCreator',
+      name: 'layoutCreator',
+      component: LayoutCreator
     },
     /*{
       path: '/turns-screens-panet',

@@ -19,20 +19,24 @@ Vue.component('content-component', ContentComponent);
 
 import VueMaterial from 'vue-material'
 import VueSweetAlert from 'vue-sweetalert2'
+import store from './components/LayoutCreator/store'
 
 Vue.use(VueMaterial)
 Vue.use(VueSweetAlert)
 Vue.use(VueRouter)
 
-Vue.config.productionTip = false
 
+Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
+  store,
   components: { 
-    App,
+    App
     //'col-component': ColComponent,
     //'row-component': RowComponent
   },
   template: '<App/>'
 })
+
+

@@ -1,5 +1,6 @@
 <template>
   <div
+    @click="select(2)"
     class="row w-100 py-3 px-3 mx-0"
     v-if="config.cols"
     style="border: 1px solid black"
@@ -34,9 +35,13 @@ export default {
   },
 
   methods: {
-    select(ev) {
+    select_Color(ev) {
       ev.target.style.backgroundColor =
         "#" + (((1 << 24) * Math.random()) | 0).toString(16);
+    },
+    select(index) {
+      console.log(index);
+      store.commit("increment", index);
     },
     getStore() {
       if (this.config.id != null) {
