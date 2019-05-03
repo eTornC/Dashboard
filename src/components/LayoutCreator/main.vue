@@ -6,7 +6,8 @@
     </div>
     <div class="col">
       <div class="view">
-        {{$store.state.count }}
+        <row-component :config="$store.state.jsonLayout"/>
+        {{$store.state.position }}
         <button class="btn btn-success" @click="increment">+</button>
         <button class="btn btn-danger" @click="decrement">-</button>
       </div>
@@ -15,24 +16,17 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   data() {
     return {};
   },
-  created() {
-
-  },
-  methods: mapActions([
-    'increment',
-    'decrement',
-  ]),
+  created() {},
+  methods: mapActions(["increment", "decrement"]),
   computed: {},
-  components: { }
+  components: {}
 };
-
-
 </script>
 
 <style>

@@ -2,13 +2,13 @@
   <div class="app">
     <!--HOME-->
     <div v-if="mode == 'home'" class="screenConten">
-      <div class="screen" v-for="screen in turnScreen" :key="screen.ID">
+      <div class="screen" v-for="screen in turnScreen" :key="screen.id">
         <header>
           <div class="screen_name">
-            <span>{{screen.NAME}}</span>
+            <span>{{screen.name}}</span>
           </div>
           <div class="screen_option">
-            <div @click="editScreen(screen.ID)">
+            <div @click="editScreen(screen.id)">
               <img
                 class="optionIcon"
                 src="https://image.flaticon.com/icons/svg/149/149307.svg"
@@ -17,7 +17,7 @@
                 width="100%"
               >
             </div>
-            <div @click="delScreen(screen.ID)">
+            <div @click="delScreen(screen.id)">
               <img
                 class="optionIcon"
                 src="https://image.flaticon.com/icons/svg/1345/1345823.svg"
@@ -29,7 +29,7 @@
           </div>
         </header>
         <div class="content">
-          <screen-demo-component :jsonConfig="JSON.parse(screen.LAYOUT)"/>
+          <screen-demo-component :jsonConfig="screen.layout"/>
         </div>
       </div>
       <div class="turnScreenBottom">
@@ -78,9 +78,6 @@ export default {
       screenId: null
     };
   },
-  created: function() {
-    this.getScreen();
-  },
   mounted: function() {
     this.getScreen();
     this.getStores();
@@ -101,15 +98,17 @@ export default {
         });
     },
     getScreen() {
-      const url = urls.host + urls.routes.apiPrefix + urls.routes.layouts;
-      //console.log(url);
+      const url = urls.host + urls.routes.prefix + urls.routes.layouts;
+      console.log(url);
       var reference = this;
       axios
         .get(url)
         .then(res => {
-          reference.turnScreen = res.data.records.filter(
-            layout => layout.TYPE == "TOTEM"
+          reference.turnScreen = res.data.filter(
+            layout => layout.type == "TOTEMSCREEN"
           );
+          console.log(res.data);
+
           console.log(reference.turnScreen);
         })
         .catch(err => {
@@ -117,10 +116,12 @@ export default {
         });
     },
     delScreen(id) {
-      let url = urls.host + urls.routes.apiPrefix + urls.routes.layouts;
+      let url = urls.host + urls.routes.prefix + urls.routes.layouts;
       var reference = this;
       axios
-        .delete(`${url}/${id}`, {})
+        .delete(`${url}`, {
+          "id":`${id}`
+        })
         .then(function(response) {
           console.log(response);
           reference.getScreen();
@@ -131,7 +132,7 @@ export default {
     },
     getScreenLayout(id) {
       let url =
-        urls.host + urls.routes.apiPrefix + urls.routes.turnScreen + "/" + id;
+        urls.host + urls.routes.prefix + urls.routes.layout + "/" + id;
       var reference = this;
       console.log(url);
       axios

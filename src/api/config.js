@@ -2,8 +2,8 @@
 
 export default {
 
-host: 'http://labs.iam.cat',
- //host: 'http://localhost',
+//host: 'http://labs.iam.cat',
+ host: 'http://localhost',
 
   port: 80,
 
@@ -11,19 +11,21 @@ host: 'http://labs.iam.cat',
     turnScreen: '/turnScreen',
     section:'/section',
     template:'/template',
-    layouts:'/LAYOUTS',
+    layouts:'/layouts',
+    layout:'/layout',
+    totem_screen:'/totem-screen',
+
 
     //apiPrefix:'/api.php/records',
     apiPrefix:'/~a15zehcheche/eTorn/api.php/records',
     
     //prefix: '/eTorn',
     //prefix: '/~a16josortmar/eTorn',
-    prefix: '/~a16josortmar/eTorn',
-
-
+    //prefix: '/~a16josortmar/eTorn',
+    
+    prefix: '',
     stores: '/stores',
     store: '/store',
-
     config: '/config'
   },
 }

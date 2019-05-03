@@ -24,7 +24,7 @@
 								<td> {{ store.id }} </td>
 								<td> {{ store.name }} </td>
 								<td>
-									<img :src="config.host + config.routes.prefix + store.photopath" width="150px" /> 
+									<img :src="config.host + config.routes.prefix + store.photo_path" width="150px" /> 
 								</td>
 								<td>
 									<button @click="updateStore(store)" class="btn btn-info">

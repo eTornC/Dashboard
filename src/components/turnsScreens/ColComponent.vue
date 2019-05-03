@@ -16,6 +16,8 @@
 <script>
 import urls from "../../api/config.js";
 import axios from "axios";
+import { mapGetters, mapActions } from "vuex";
+
 export default {
   props: {
     config: Object
@@ -25,6 +27,7 @@ export default {
       stores: null
     };
   },
+  methods: mapActions(["setPositonSelect"]),
   methods: {
     select_Color(ev) {
       ev.target.style.backgroundColor =

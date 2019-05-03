@@ -36,6 +36,7 @@ export default {
 		const url = urls.host + urls.routes.prefix + urls.routes.stores
 		axios.get(url)
 			.then(res => {
+				console.log(res.data);
 				this.stores = res.data;
 			})
 			.catch(err => {

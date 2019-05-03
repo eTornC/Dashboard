@@ -1,19 +1,19 @@
 <template>
   <div
-    @click="select(2)"
     class="row w-100 py-3 px-3 mx-0"
     v-if="config.cols"
     style="border: 1px solid black"
+    @click="setPositonSelect(config.position)"
   >
     <template v-for="(col, index) in config.cols">
       <col-component :class="' px-3 py-3 mx-0 col-md-' + col.width" :config="col" :key="index"/>
     </template>
   </div>
-  <div v-else style="border: 1px solid black" class="px-3 py-3">
+  <div v-else style="border: 1px solid black" class="px-3 py-3"  >
     <!-- solucio del que el store es null utilitza el v-for por pasar objecta.
       si pasar el strores directamente es null
     -->
-    <div class="turnBox">
+    <div class="turnBox" >
       <template v-for="store in stores">
         <content-component :key="store.name" :store="store"/>
       </template>
@@ -24,6 +24,8 @@
 <script>
 import urls from "../../api/config.js";
 import axios from "axios";
+import { mapGetters, mapActions } from "vuex";
+
 export default {
   props: {
     config: Object
@@ -33,15 +35,14 @@ export default {
       stores: null
     };
   },
-
-  methods: {
+  methods: mapActions(["increment", "decrement","setPositonSelect"]),
+  /* methods: {
     select_Color(ev) {
       ev.target.style.backgroundColor =
         "#" + (((1 << 24) * Math.random()) | 0).toString(16);
     },
     select(index) {
       console.log(index);
-      store.commit("increment", index);
     },
     getStore() {
       if (this.config.id != null) {
@@ -62,11 +63,13 @@ export default {
             console.error(err);
           });
       }
+    },
+    setPositon(positon){
+      $store.commit('setPositonSelect', positon)
     }
-  },
+  },*/
   mounted() {},
   created() {
-    this.getStore();
   }
 };
 </script>

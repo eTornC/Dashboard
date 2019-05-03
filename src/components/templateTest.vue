@@ -1,7 +1,25 @@
 <template>
   <div class="container">
     <h1>Testing</h1>
-    <div class="row">{{menssage}}</div>
+    <div class="row">MSG> {{menssage}}</div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="nom"
+          >
+        </div>
+      </div>
+      <div class="col-md-6">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="descripcion..."
+          >
+      </div>
+    </div>
     <div class="row">
       <h3>
         Exemple:
@@ -28,12 +46,14 @@
     <button @click="isValidLayout">Validar</button>
     <button @click="formateJson">fortamte</button>
     <button @click="checkJsonCode">generate</button>
+    <button @click="save">save</button>
   </div>
 </template>
 
 <script>
 import axios from "axios";
 import demoScreen from "./managerTurnScreen/screenDemo.vue";
+import urls from "../api/config";
 
 export default {
   components: {
@@ -41,6 +61,8 @@ export default {
   },
   data() {
     return {
+      name: null,
+      description: null,
       templateLayout: null,
       layoutInput: null,
       isValid: true,
@@ -208,6 +230,23 @@ export default {
         this.newScreenLayout += `"id":1`;
         return this.newScreenLayout;
       }
+    },
+    save() {
+      const url = urls.host + urls.routes.prefix + urls.routes.layout;
+      console.log(url);
+      axios
+        .post(url, {
+          name: this.name,
+          description: this.description,
+          layout: this.newScreenLayout,
+          type: "TEMPLATE"
+        })
+        .then(function(response) {
+          console.log(response);
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
     }
   }
 };

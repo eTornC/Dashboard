@@ -1,16 +1,33 @@
 <template>
   <div>
-    <div v-if="templateSelect && model != 'edit'" class="form">
-      <h1>Plantilla selectionado : {{templateSelect.NAME}}</h1>
-      <button @click="crear()" class="btn btn-primary mb-2">Crear</button>
-    </div>
-
     <div v-if="model == 'edit'" class="main_edit">
       <div class="content">
         <div class="info">
-          <div class="form-group row">
+          <div class="card">
+            <div class="card-header">Datos de pantalla</div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <input type="text" v-model="newName" placeholder="nom" class="form-control">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      v-model="description"
+                      placeholder="descripcion"
+                      class="form-control"
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--div class="form-group row">
             <div class="col-sm-2">
-              <h1 class=" col-form-label">Nom</h1>
+              <h1 class="col-form-label">Nom</h1>
             </div>
             <div class="col-sm-10">
               <input
@@ -24,7 +41,7 @@
           </div>
           <div class="form-group row">
             <div class="col-sm-2">
-              <h1 class=" col-form-label">Descripcion</h1>
+              <h1 class="col-form-label">Descripcion</h1>
             </div>
             <div class="col-sm-10">
               <input
@@ -35,7 +52,7 @@
                 placeholder
               >
             </div>
-          </div>
+          </div-->
         </div>
         <div class="template">
           <div id="option"></div>
@@ -50,25 +67,34 @@
         </div>
       </div>
     </div>
-    <div v-else-if="model === 'select'" class="templateContent">
-      <div
-        class="template"
-        @click="select(index)"
-        v-for="(template, index) in templates"
-        :key="template.ID"
-      >
-        <header>
-          <div class="template_name">
-            <span>{{template.NAME}}</span>
+    <div v-else-if="model === 'select'">
+      <h1>Selecciona una plantilla</h1>
+      <div class="templateContent">
+        <div
+          :class="{ select: template.id == templateSelect.id }"
+          class="template templateTotem"
+          @click="select(index)"
+          v-for="(template, index) in templates"
+          :key="template.id"
+        >
+          <header>
+            <div class="template_name">
+              <span>{{template.name}}</span>
+            </div>
+          </header>
+          <div class="content">
+            <screen-demo-component :jsonConfig="template.layout"/>
           </div>
-        </header>
-        <div class="content">
-          <screen-demo-component :jsonConfig="JSON.parse(template.LAYOUT)"/>
         </div>
       </div>
     </div>
-    <div v-if="model != 'edit'" class="cancel">
+    <div v-if="model != 'edit'" class="test-center">
       <button @click="$emit('input', 'home');" type="button" class="btn btn-danger">Cancelar</button>
+      <button
+        v-if="templateSelect && model != 'edit' && templateSelect.id !=0 "
+        @click="crear()"
+        class="btn btn-primary"
+      >Crear</button>
     </div>
   </div>
 </template>
@@ -90,7 +116,7 @@ export default {
   data() {
     return {
       templates: null,
-      templateSelect: null,
+      templateSelect: { id: 0 },
       newName: null,
       description: null,
 
@@ -109,14 +135,14 @@ export default {
   },
   methods: {
     getTemplates() {
-      const url = urls.host + urls.routes.apiPrefix + urls.routes.layouts;
+      const url = urls.host + urls.routes.prefix + urls.routes.layouts;
       //console.log(url);
       var reference = this;
       axios
         .get(url)
         .then(res => {
-          reference.templates = res.data.records.filter(
-            layout => layout.TYPE == "TEMPLATE"
+          reference.templates = res.data.filter(
+            layout => layout.type == "TEMPLATE"
           );
           console.log(reference.templates);
         })
@@ -136,7 +162,7 @@ export default {
         this.storeSelect = storeSelect;
         console.log(this.storeSelect);
         this.newScreenLayout = "{";
-        this.generateNewScreenLayout(JSON.parse(this.templateSelect.LAYOUT));
+        this.generateNewScreenLayout(this.templateSelect.layout);
         this.newScreenLayout += "}";
         this.layoutPositionCountID = 0;
 
@@ -146,18 +172,16 @@ export default {
 
         let reference = this;
 
-        const url = urls.host + urls.routes.apiPrefix + urls.routes.layouts;
+        const url = urls.host + urls.routes.prefix + urls.routes.totem_screen;
+        console.log(url);
         axios
           .post(url, {
-            NAME: this.newName,
-            LAYOUT: this.newScreenLayout,
-            DESCRIPTION: this.description,
-            TYPE: "TOTEM"
+            name: this.newName,
+            layout: JSON.parse(this.newScreenLayout),
+            description: this.description,
+            type: "TOTEMSCREEN"
           })
           .then(function(response) {
-            console.log(response);
-            reference.templateSelect = null;
-            reference.model = "select";
             swal.fire({
               position: "top-end",
               type: "success",
@@ -165,6 +189,7 @@ export default {
               showConfirmButton: false,
               timer: 1500
             });
+            this.router.push("/totemScreenManager");
           })
           .catch(function(error) {
             console.log(error);
@@ -200,10 +225,8 @@ export default {
         });
     },
     createScreenLayout() {
-      this.StoreListHtmlCode = this.generateGrid(
-        JSON.parse(this.templateSelect.LAYOUT)
-      );
-      console.log(this.templateSelect.LAYOUT);
+      this.StoreListHtmlCode = this.generateGrid(this.templateSelect.layout);
+      console.log(this.templateSelect.layout);
       $("#option").html(this.StoreListHtmlCode);
     },
     generateGrid(jsonConfig) {
@@ -313,20 +336,23 @@ export default {
   display: flex;
   flex-wrap: wrap;
 }
+.templateTotem {
+  border-radius: 5px;
+  -webkit-box-shadow: 2px 1px 10px 2px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 2px 1px 10px 2px rgba(0, 0, 0, 0.5);
+  box-shadow: 2px 1px 10px 2px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}
 
 .template {
   width: 350px;
   height: 250px;
   background-color: #e4e4e4;
   position: relative;
-  border-radius: 5px;
   overflow: hidden;
   margin: 50px auto;
-  -webkit-box-shadow: 2px 1px 10px 2px rgba(0, 0, 0, 0.5);
-  -moz-box-shadow: 2px 1px 10px 2px rgba(0, 0, 0, 0.5);
-  box-shadow: 2px 1px 10px 2px rgba(0, 0, 0, 0.5);
-  cursor: pointer;
 }
+
 .template header {
   height: 15%;
   width: 100%;
@@ -372,7 +398,7 @@ export default {
 }
 
 .main_edit .content .template {
-  background-color: #aaa;
+  /* background-color: #aaa;*/
   height: 90%;
   width: 100%;
   padding: 0;
@@ -387,5 +413,8 @@ export default {
 }
 .template #option {
   height: 100%;
+}
+.select {
+  border: 5px solid #007bff;
 }
 </style>
