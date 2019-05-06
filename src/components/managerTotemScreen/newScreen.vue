@@ -9,7 +9,7 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <input type="text" v-model="newName" placeholder="nom" class="form-control">
+                    <input type="text"  v-model="newName" placeholder="nom" class="form-control text-dark">
                   </div>
                 </div>
                 <div class="col-md-6">
@@ -18,7 +18,7 @@
                       type="text"
                       v-model="description"
                       placeholder="descripcion"
-                      class="form-control"
+                      class="form-control text-dark"
                     >
                   </div>
                 </div>
@@ -398,7 +398,7 @@ export default {
 }
 
 .main_edit .content .template {
-  /* background-color: #aaa;*/
+  background-color: #ccc;
   height: 90%;
   width: 100%;
   padding: 0;

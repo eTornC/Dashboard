@@ -14,7 +14,7 @@ export default {
     layouts:'/layouts',
     layout:'/layout',
     totem_screen:'/totem-screen',
-
+    turns_screen:'/turns-screen',
 
     //apiPrefix:'/api.php/records',
     apiPrefix:'/~a15zehcheche/eTorn/api.php/records',

@@ -6,7 +6,7 @@
           v-if="edit_screen"
           @blur="updateScreenName"
           contenteditable="true"
-        >{{edit_screen.NAME}}</span>
+        >{{edit_screen.name}}</span>
       </div>
       <div class="template">
         <!--layout-component :sections="sections" :jsonConfig=" JSON.parse(edit_screen.layout)"/-->
@@ -74,7 +74,7 @@ export default {
     },
     getScreenLayout(id) {
       const url =
-        urls.host + urls.routes.apiPrefix + urls.routes.layouts + "/" + id;
+        urls.host + urls.routes.prefix + urls.routes.layout + "/" + id;
       var reference = this;
       console.log(url);
       axios
@@ -83,10 +83,10 @@ export default {
           //console.log(res.data);
           reference.edit_screen = res.data;
           reference.StoreListHtmlCode = reference.generateGrid(
-            JSON.parse(reference.edit_screen.LAYOUT)
+            reference.edit_screen.layout
           );
 
-          console.log(reference.edit_screen.LAYOUT);
+          console.log(reference.edit_screen.layout);
           $("#option").html(reference.StoreListHtmlCode);
         })
         .catch(err => {
@@ -98,13 +98,13 @@ export default {
 
       const url =
         urls.host +
-        urls.routes.apiPrefix +
-        urls.routes.layouts +
+        urls.routes.prefix +
+        urls.routes.layout +
         "/" +
         this.edit_screen.ID;
       axios
         .put(url, {
-          NAME: e.target.innerText
+          name: e.target.innerText
         })
         .then(function(response) {
           console.log(response);
@@ -245,11 +245,11 @@ export default {
     },
     updateLayout() {
       const url =
-        urls.host + urls.routes.apiPrefix + urls.routes.layouts + "/" + this.id;
+        urls.host + urls.routes.prefix + urls.routes.layout + "/" + this.id;
       var reference = this;
       axios
         .put(url, {
-          LAYOUT: this.newScreenLayout
+          layout: this.newScreenLayout
         })
         .then(function(response) {
           console.log(response);
@@ -278,7 +278,7 @@ export default {
       console.log(this.storeSelect);
 
       this.newScreenLayout = "{";
-      this.generateNewScreenLayout(JSON.parse(this.edit_screen.LAYOUT));
+      this.generateNewScreenLayout(this.edit_screen.layout);
       this.newScreenLayout += "}";
       console.log(this.newScreenLayout);
       this.updateLayout();
@@ -292,13 +292,13 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 /* edit */
 .main_edit {
   height: 80%;
 }
 .main_edit .content {
-  height: 700px;
+  height: 500px;
   width: 80%;
   margin: auto;
   display: flex;
@@ -309,7 +309,7 @@ export default {
   width: 100%;
   font-size: 2rem;
   background-color: #999;
-  height: 10%;
+  height: 15%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -318,8 +318,8 @@ export default {
 }
 
 .main_edit .content .template {
-  background-color: #aaa;
-  height: 90%;
+  background-color: #ccc;
+  height: 85%;
   width: 100%;
   padding: 0;
 }
