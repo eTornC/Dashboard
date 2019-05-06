@@ -265,17 +265,17 @@ export default {
           this.selectPositionCountID
         }" class="form-control selecte` + '">';
       for (let i = 0; i < this.stores.length; i++) {
-        if (i + 1 == id) {
+        if (i == 0) {
           this.StoreListHtmlCode +=
             '<option selected value="' +
-            `${i + 1}` +
+            this.stores[i].id +
             '">' +
             this.stores[i].name +
             "</option>";
         } else {
           this.StoreListHtmlCode +=
             '<option value="' +
-            `${i + 1}` +
+             this.stores[i].id +
             '">' +
             this.stores[i].name +
             "</option>";
