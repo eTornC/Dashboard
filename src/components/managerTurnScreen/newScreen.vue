@@ -55,7 +55,7 @@
           </div-->
         </div>
         <div class="template">
-          <div id="option"></div>
+          <div id="option" class="p-3"></div>
         </div>
       </div>
       <div class="option">
@@ -234,9 +234,9 @@ export default {
       this.StoreListHtmlCode = "";
       if (jsonConfig.rows) {
         for (let i = 0; i < jsonConfig.rows.length; i++) {
-          this.StoreListHtmlCode += `<div class="row px-3 py-3 mx-0" style="height: ${
+          this.StoreListHtmlCode += `<div class="row px-0 py-0 mx-0" style="height: ${
             jsonConfig.rows[i].height
-          }%;border: 1px solid black">
+          }%;border: 0px solid black">
 													${this.generateGrid(jsonConfig.rows[i])}
 												</div>`;
         }
@@ -246,9 +246,9 @@ export default {
         for (let i = 0; i < jsonConfig.cols.length; i++) {
           this.StoreListHtmlCode += `<div class="col-md-${
             jsonConfig.cols[i].width
-          } px-3 py-3 mx-0 " style=" height: ${
+          } px-0 py-0 mx-0 " style=" height: ${
             jsonConfig.cols[i].height
-          }%; border: 1px solid black">
+          }%; border: 0px solid black">
 													${this.generateGrid(jsonConfig.cols[i])}
 												</div>`;
         }
@@ -261,6 +261,7 @@ export default {
       this.StoreListHtmlCode = StoreListHtmlCode;
     },
     crearStoreList(id) {
+      this.StoreListHtmlCode +='<div class="storelistbox p-3" style=" height: 100%; width: 100%; border: 1px solid black;">';
       this.StoreListHtmlCode +=
         `<select selectId="${
           this.selectPositionCountID
@@ -283,6 +284,8 @@ export default {
         }
       }
       this.StoreListHtmlCode += "</select>";
+      this.StoreListHtmlCode +='</div>';
+
       this.selectPositionCountID++;
       return this.StoreListHtmlCode;
       //console.log(this.StoreListHtmlCode);
@@ -418,4 +421,10 @@ export default {
 .select {
   border: 5px solid #007bff;
 }
+.storelistbox{
+    height: 100%;
+    width: 100%;
+    border: 1px solid black;
+}
+
 </style>

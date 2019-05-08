@@ -55,7 +55,7 @@
           </div-->
         </div>
         <div class="template">
-          <div id="option"></div>
+          <div id="option" class="p-3"></div>
         </div>
       </div>
       <div class="option">
@@ -261,6 +261,8 @@ export default {
     },
     crearStoreList(id) {
       this.StoreListHtmlCode +=
+        '<div class="storelistbox p-3" style=" height: 100%; width: 100%; border: 1px solid black;">';
+      this.StoreListHtmlCode +=
         `<select selectId="${
           this.selectPositionCountID
         }" class="form-control selecte` + '">';
@@ -282,6 +284,8 @@ export default {
         }
       }
       this.StoreListHtmlCode += "</select>";
+      this.StoreListHtmlCode += "</div>";
+
       this.selectPositionCountID++;
       return this.StoreListHtmlCode;
       //console.log(this.StoreListHtmlCode);

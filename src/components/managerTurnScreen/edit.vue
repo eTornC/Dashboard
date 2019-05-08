@@ -10,7 +10,7 @@
       </div>
       <div class="template">
         <!--layout-component :sections="sections" :jsonConfig=" JSON.parse(edit_screen.layout)"/-->
-        <div id="option"></div>
+        <div id="option" class="p-3"></div>
       </div>
     </div>
     <div class="option">
@@ -29,7 +29,6 @@ import axios from "axios";
 import urls from "../../api/config.js";
 //import $ from "../assets/jquery.js";
 import swal from "sweetalert2";
-
 
 global.jQuery = require("jQuery");
 var $ = global.jQuery;
@@ -117,9 +116,9 @@ export default {
       this.StoreListHtmlCode = "";
       if (jsonConfig.rows) {
         for (let i = 0; i < jsonConfig.rows.length; i++) {
-          this.StoreListHtmlCode += `<div class="row px-3 py-3 mx-0" style="height: ${
+          this.StoreListHtmlCode += `<div class="row px-0 py-0 mx-0" style="height: ${
             jsonConfig.rows[i].height
-          }%;border: 1px solid black">
+          }%;border: 0px solid black">
 													${this.generateGrid(jsonConfig.rows[i])}
 												</div>`;
         }
@@ -129,9 +128,9 @@ export default {
         for (let i = 0; i < jsonConfig.cols.length; i++) {
           this.StoreListHtmlCode += `<div class="col-md-${
             jsonConfig.cols[i].width
-          } px-3 py-3 mx-0 " style=" height: ${
+          } px-0 py-0 mx-0 " style=" height: ${
             jsonConfig.cols[i].height
-          }%; border: 1px solid black">
+          }%; border: 0px solid black">
 													${this.generateGrid(jsonConfig.cols[i])}
 												</div>`;
         }
@@ -177,11 +176,14 @@ export default {
     },*/,
     crearStoreList(id) {
       this.StoreListHtmlCode +=
+        '<div class="storelistbox p-3" style=" height: 100%; width: 100%; border: 1px solid black;">';
+
+      this.StoreListHtmlCode +=
         `<select selectId="${
           this.selectPositionCountID
         }" class="form-control selecte` + '">';
       for (let i = 0; i < this.stores.length; i++) {
-        if (i == 0) {
+        if (this.stores[i].id == id) {
           this.StoreListHtmlCode +=
             '<option selected value="' +
             this.stores[i].id +
@@ -191,13 +193,15 @@ export default {
         } else {
           this.StoreListHtmlCode +=
             '<option value="' +
-             this.stores[i].id +
+            this.stores[i].id +
             '">' +
             this.stores[i].name +
             "</option>";
         }
       }
       this.StoreListHtmlCode += "</select>";
+      this.StoreListHtmlCode += "</div>";
+
       this.selectPositionCountID++;
       return this.StoreListHtmlCode;
       //console.log(this.StoreListHtmlCode);
@@ -254,7 +258,7 @@ export default {
         .then(function(response) {
           console.log(response);
           reference.templateSelect = null;
-           swal.fire({
+          swal.fire({
             position: "top-end",
             type: "success",
             title: "Tu cambio ha guardado",
