@@ -2,11 +2,16 @@
   <div class="main_edit">
     <div class="content">
       <div class="name">
-        <span
+        <input
+          class="text-center border-0 turnName"
           v-if="edit_screen"
           @blur="updateScreenName"
-          contenteditable="true"
-        >{{edit_screen.name}}</span>
+          v-focus="focused"
+          @focus="focused = true"
+          @keydown.enter="updateScreenName"
+          v-model="edit_screen.name"
+          style="background-color: #999;"
+        >
       </div>
       <div class="template">
         <!--layout-component :sections="sections" :jsonConfig=" JSON.parse(edit_screen.layout)"/-->
@@ -29,6 +34,7 @@ import axios from "axios";
 import urls from "../../api/config.js";
 //import $ from "../assets/jquery.js";
 import swal from "sweetalert2";
+import VueFocus from "vue-focus";
 
 global.jQuery = require("jQuery");
 var $ = global.jQuery;
@@ -39,6 +45,7 @@ export default {
     id: Number,
     mode: String
   },
+  mixins: [VueFocus.mixin],
   data() {
     return {
       edit_screen: null,
@@ -48,7 +55,8 @@ export default {
       storeSelect: [],
       selectPositionCountID: 0,
       layoutPositionCountID: 0,
-      newScreenLayout: ""
+      newScreenLayout: "",
+      focused: false
     };
   },
   mounted: function() {
@@ -93,6 +101,7 @@ export default {
         });
     },
     updateScreenName: function(e) {
+      this.focused = false;
       console.log("UPDATING  this Screen" + e.target.innerText);
 
       const url =
@@ -337,5 +346,11 @@ export default {
 }
 .template #option {
   height: 100%;
+}
+
+.turnName {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 </style>

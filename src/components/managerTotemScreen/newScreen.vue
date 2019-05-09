@@ -233,9 +233,9 @@ export default {
       this.StoreListHtmlCode = "";
       if (jsonConfig.rows) {
         for (let i = 0; i < jsonConfig.rows.length; i++) {
-          this.StoreListHtmlCode += `<div class="row px-3 py-3 mx-0" style="height: ${
+          this.StoreListHtmlCode += `<div class="row px-0 py-0 mx-0" style="height: ${
             jsonConfig.rows[i].height
-          }%;border: 1px solid black">
+          }%;border: 0px solid black">
 													${this.generateGrid(jsonConfig.rows[i])}
 												</div>`;
         }
@@ -245,9 +245,9 @@ export default {
         for (let i = 0; i < jsonConfig.cols.length; i++) {
           this.StoreListHtmlCode += `<div class="col-md-${
             jsonConfig.cols[i].width
-          } px-3 py-3 mx-0 " style=" height: ${
+          } px-0 py-0 mx-0 " style=" height: ${
             jsonConfig.cols[i].height
-          }%; border: 1px solid black">
+          }%; border: 0px solid black">
 													${this.generateGrid(jsonConfig.cols[i])}
 												</div>`;
         }

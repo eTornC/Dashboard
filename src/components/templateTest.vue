@@ -29,7 +29,7 @@
       </h3>
     </div>
     <div class="row">
-      <div class="col showLayout">
+      <div class="col columna showLayout">
         <screen-demo-component v-if="templateLayout" :jsonConfig="templateLayout"/>
       </div>
       <div class="col">
