@@ -261,7 +261,7 @@ export default {
       var reference = this;
       axios
         .put(url, {
-          layout: this.newScreenLayout
+          layout:  JSON.parse(this.newScreenLayout)
         })
         .then(function(response) {
           console.log(response);

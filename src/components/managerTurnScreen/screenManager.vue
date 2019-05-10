@@ -116,12 +116,10 @@ export default {
         });
     },
     delScreen(id) {
-      let url = urls.host + urls.routes.prefix + urls.routes.layouts;
+      let url = urls.host + urls.routes.prefix + urls.routes.layout + "/" +id;
       var reference = this;
       axios
-        .delete(`${url}`, {
-          "id":`${id}`
-        })
+        .delete(`${url}`)
         .then(function(response) {
           console.log(response);
           reference.getScreen();

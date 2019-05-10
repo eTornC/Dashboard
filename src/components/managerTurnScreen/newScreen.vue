@@ -190,6 +190,7 @@ export default {
               showConfirmButton: false,
               timer: 1500
             });
+            this.setmode("select");
             $router.push("/totemScreenManager");
           })
           .catch(function(error) {
