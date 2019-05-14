@@ -5,9 +5,9 @@
         <input
           class="text-center border-0 totemName"
           v-if="edit_screen"
-          @blur="updateScreenName"
           v-focus="focused"
           @focus="focused = true"
+          @blur="focused = false"
           @keydown.enter="updateScreenName"
           v-model="edit_screen.name"
           style="background-color: #999;"
@@ -102,17 +102,17 @@ export default {
     },
     updateScreenName: function(e) {
       this.focused = false;
-      console.log("UPDATING  this Screen" + e.target.innerText);
+      console.log("UPDATING  this Screen " + this.edit_screen.name);
 
       const url =
         urls.host +
         urls.routes.prefix +
         urls.routes.layout +
         "/" +
-        this.edit_screen.ID;
+        this.edit_screen.id;
       axios
         .put(url, {
-          name: e.target.innerText
+          name: this.edit_screen.name
         })
         .then(function(response) {
           console.log(response);
@@ -261,7 +261,8 @@ export default {
       var reference = this;
       axios
         .put(url, {
-          layout:  JSON.parse(this.newScreenLayout)
+          name: this.edit_screen.name,
+          layout: JSON.parse(this.newScreenLayout)
         })
         .then(function(response) {
           console.log(response);

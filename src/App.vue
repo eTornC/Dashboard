@@ -11,6 +11,7 @@
       <a class="nav-link text-white" @click="$router.push('/turnScreenManager')">Gestio Pantalles torns</a>
       <a class="nav-link text-white" @click="$router.push('/totemScreenManager')">Gestio Pantalles totem</a>
       <a class="nav-link text-white" @click="$router.push('/templateTest')">Template Testing</a>
+      <a class="nav-link text-white" @click="$router.push('/publicityManager')">Publicidad</a>
     </nav>
     
     <router-view class="" />

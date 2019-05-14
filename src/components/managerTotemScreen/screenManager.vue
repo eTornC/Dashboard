@@ -8,10 +8,19 @@
             <span>{{screen.name}}</span>
           </div>
           <div class="screen_option">
+            <div @click="viewTurns(screen.id)">
+              <img
+                class="optionIcon"
+                src="../../assets/view.svg"
+                alt="Smi"
+                height="100%"
+                width="100%"
+              >
+            </div>
             <div @click="editScreen(screen.id)">
               <img
                 class="optionIcon"
-                src="https://image.flaticon.com/icons/svg/149/149307.svg"
+                src="../../assets/edit.svg"
                 alt="Smi"
                 height="100%"
                 width="100%"
@@ -20,7 +29,7 @@
             <div @click="delScreen(screen.id)">
               <img
                 class="optionIcon"
-                src="https://image.flaticon.com/icons/svg/1345/1345823.svg"
+                src="../../assets/remove.svg"
                 alt="delete"
                 height="100%"
                 width="100%"
@@ -234,7 +243,7 @@ export default {
   display: flex;
 }
 .screen_name {
-  width: 75%;
+  width: 70%;
   height: 100%;
   background-color: #b1ccef;
   display: flex;
@@ -252,10 +261,10 @@ export default {
   background-color: #b1ccef;
   display: flex;
   align-items: center;
-  width: 25%;
+  width: 30%;
 }
 .screen_option div {
-  margin: 0 10px;
+  margin: 0 5px;
   width: 80%;
   height: 80%;
   cursor: pointer;
