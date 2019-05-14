@@ -23,27 +23,28 @@
     <div class="row p-4">
       <div class="col-6">
         <div class="row">
-          <div class="col-2 d-flex align-items-center">
-            <input type="number" v-model="viewr.height" min="1" max="400">
-          </div>
-          <div class="col-10 viwerBox">
+          <div class="col-12 viwerBox">
             <div
               class="viwer"
               :style="{ height: viewr.height + 'px', width: viewr.width + 'px' }"
               v-html="htmlCode"
             ></div>
-            <input type="number" v-model="viewr.width" min="1" max="700">
+            <div class="mt-2">
+              <span>height</span>
+              <input type="number" v-model="viewr.height" min="1" max="390">
+              <span>width</span>
+              <input type="number" v-model="viewr.width" min="1" max="700">
+            </div>
           </div>
         </div>
       </div>
       <div class="col-6">
         <div class="row">
-          <div class="col-10">
+          <div class="col-12">
             <div class="code">
               <textarea class="form-control" v-model="htmlCode" rows="12" placeholder="Code HTML"></textarea>
             </div>
           </div>
-          <div class="col-2"></div>
         </div>
       </div>
     </div>
@@ -62,7 +63,7 @@ export default {
     return {
       viewr: {
         height: 300,
-        width: 520
+        width: 510
       },
       name: null,
       description: null,
@@ -98,14 +99,14 @@ export default {
           .catch(function(error) {
             console.log(error);
           });
-      }else{
+      } else {
         swal.fire({
-              position: "top-end",
-              type: "error",
-              title: "Falta datos",
-              showConfirmButton: false,
-              timer: 1500
-            });
+          position: "top-end",
+          type: "error",
+          title: "Falta datos",
+          showConfirmButton: false,
+          timer: 1500
+        });
       }
     }
   }
