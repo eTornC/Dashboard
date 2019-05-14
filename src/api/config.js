@@ -3,7 +3,7 @@
 export default {
 
 //host: 'http://labs.iam.cat',
- host: 'http://localhost',
+  host: 'http://localhost',
 
   port: 80,
 

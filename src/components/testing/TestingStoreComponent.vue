@@ -1,6 +1,6 @@
 <template>
 	<div class="store my-2 mx-2">
-		<img :src="urls.host + urls.routes.prefix + store.photopath" class="img-card"> 
+		<img :src="urls.host + urls.routes.prefix + store.photo_path" class="img-card"> 
 		<h1 class="mb-3 mt-2">{{ store.name }}</h1>
 
 		<h4>Torn Actual:</h4>
