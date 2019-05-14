@@ -17,33 +17,36 @@
         <i class="fas fa-sm text-white-50"></i> Afegir publicidad
       </span>
     </div>
-    <div class="col-12" v-if="model == 'view'">
-      <div v-for="(publicity,index) in publicitys" :key="index">
-        <div class="card flex-md-row mb-4 mt-4 box-shadow h-md-250">
-          <div class="card-body d-flex flex-column align-items-start">
-            <h3 class="mb-0">
-              <strong class="d-inline-block mb-2 text-dark">{{publicity.name}}</strong>
-            </h3>
-            <div class="mb-1 text-muted">{{publicity.updated_at}}</div>
-            <p class="card-text mb-auto">{{publicity.description}}</p>
+    <div class="container">
+      <div class="col-12" v-if="model == 'view'">
+        <div v-for="(publicity,index) in publicitys" :key="index">
+          <div class="card flex-md-row mb-4 mt-4 box-shadow h-md-250">
+            <div class="card-body d-flex flex-column align-items-start">
+              <h3 class="mb-0">
+                <strong class="d-inline-block mb-2 text-dark">{{publicity.name}}</strong>
+              </h3>
+              <div class="mb-1 text-muted">{{publicity.updated_at}}</div>
+              <p class="card-text mb-auto">{{publicity.description}}</p>
 
-            <div>
-              <span class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Editar</span>
-              <span @click="deletePublicity(publicity)"
-                class="d-none text-white-50 d-sm-inline-block btn btn-sm btn-danger shadow-sm"
-              >Borrar</span>
+              <div>
+                <span class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Editar</span>
+                <span
+                  @click="deletePublicity(publicity)"
+                  class="d-none text-white-50 d-sm-inline-block btn btn-sm btn-danger shadow-sm"
+                >Borrar</span>
+              </div>
             </div>
+            <div
+              class="card-img-right flex-auto d-none d-md-block"
+              style="width: 700px;height: 250px; background-color:#EEE"
+              v-html="publicity.html"
+            ></div>
           </div>
-          <div
-            class="card-img-right flex-auto d-none d-md-block"
-            style="width: 700px;height: 250px; background-color:#EEE"
-            v-html="publicity.html"
-          ></div>
         </div>
       </div>
-    </div>
-    <div class="col-12" v-else-if="model == 'add'">
-      <add-publicity></add-publicity>
+      <div class="col-12" v-else-if="model == 'add'">
+        <add-publicity></add-publicity>
+      </div>
     </div>
   </div>
 </template>
