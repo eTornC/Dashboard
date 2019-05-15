@@ -49,7 +49,7 @@
       </div>
     </div>
     <div class="row d-flex justify-content-center">
-      <button  v-on:click="/*$emit('toHome', 'view')*/" @click="save()" type="button" class="btn btn-primary">Guardar</button>
+      <button v-on:click="/*$emit('toHome','view')*/" @click="save()" type="button" class="btn btn-primary">Guardar</button>
     </div>
   </div>
 </template>
@@ -58,7 +58,11 @@
 import axios from "axios";
 import urls from "../../api/config.js";
 import swal from "sweetalert2";
+
 export default {
+  props: {
+    publicity:Object
+  },
   data() {
     return {
       viewr: {
@@ -70,18 +74,23 @@ export default {
       htmlCode: null
     };
   },
-  mounted: function() {},
+  mounted: function() {
+    console.log(this.publicity);
+    this.name = this.publicity.name;
+    this.description = this.publicity.description;
+    this.htmlCode = this.publicity.html
+  },
   methods: {
-    save() {
-      const url = urls.host + urls.routes.prefix + urls.routes.publicity;
-      //console.log(url);
+    save(event) {
+      const url = urls.host + urls.routes.prefix + urls.routes.publicity + "/" + this.publicity.id;
+      console.log(url);
       if (
         this.name != null &&
         this.description != null &&
         this.htmlCode != null
       ) {
         axios
-          .post(url, {
+          .put(url, {
             name: this.name,
             description: this.description,
             html: this.htmlCode
@@ -90,11 +99,12 @@ export default {
             swal.fire({
               position: "top-end",
               type: "success",
-              title: "Publicidad Creado",
+              title: "Publicidad Modificado",
               showConfirmButton: false,
               timer: 1500
             });
             console.log(response);
+
           })
           .catch(function(error) {
             console.log(error);

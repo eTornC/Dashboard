@@ -29,7 +29,10 @@
               <p class="card-text mb-auto">{{publicity.description}}</p>
 
               <div>
-                <span class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Editar</span>
+                <span
+                  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+                  @click="editPublicity(publicity)"
+                >Editar</span>
                 <span
                   @click="deletePublicity(publicity)"
                   class="d-none text-white-50 d-sm-inline-block btn btn-sm btn-danger shadow-sm"
@@ -47,6 +50,12 @@
       <div class="col-12" v-else-if="model == 'add'">
         <add-publicity></add-publicity>
       </div>
+      <div class="col-12" v-else-if="model == 'edit'">
+        <edit-publicity
+          v-on:toHome="model =$event; getPublicity(); "
+          :publicity="this.publicityChange"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -55,23 +64,26 @@
 import axios from "axios";
 import config from "../../api/config";
 import addPublicity from "./publicityAdd.vue";
+import editPublicity from "./publicityEdit.vue";
 
 export default {
   data() {
     return {
       publicitys: [],
-      model: "view"
+      model: "view",
+      publicityChange: null
     };
   },
   components: {
-    "add-publicity": addPublicity
+    "add-publicity": addPublicity,
+    "edit-publicity": editPublicity
   },
   mounted() {
-    this.getPubliocity();
+    this.getPublicity();
   },
   created() {},
   methods: {
-    getPubliocity() {
+    getPublicity() {
       const url = config.host + config.routes.prefix + config.routes.publicitys;
 
       axios
@@ -84,23 +96,44 @@ export default {
         });
     },
     deletePublicity(publicity) {
-      axios
-        .delete(
-          config.host +
-            config.routes.prefix +
-            config.routes.publicity +
-            "/" +
-            publicity.id
-        )
-        .then(res => {
-          if (res.data) {
-            this.$swal("Publicidad eliminado.");
-            this.getPubliocity();
+      this.$swal
+        .fire({
+          title: "Seguro quires borrar-lo?",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Si borra!",
+          cancelButtonText: "No"
+        })
+        .then(result => {
+          if (result.value) {
+            axios
+              .delete(
+                config.host +
+                  config.routes.prefix +
+                  config.routes.publicity +
+                  "/" +
+                  publicity.id
+              )
+              .then(res => {
+                if (res.data) {
+                  this.$swal("Publicidad eliminado.");
+                  this.getPublicity();
+                }
+              });
           }
         });
     },
+    editPublicity(publicity) {
+      this.publicityChange = publicity;
+      this.model = "edit";
+    },
 
     setModel(model) {
+      if (model == "view") {
+        this.getPublicity();
+      }
       this.model = model;
     }
   }

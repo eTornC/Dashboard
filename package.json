@@ -16,6 +16,7 @@
     "location": "0.0.1",
     "navigator": "^1.0.1",
     "vue": "^2.5.2",
+    "vue-emit": "^1.0.1",
     "vue-focus": "^2.1.0",
     "vue-material": "^1.0.0-beta-10.2",
     "vue-router": "^3.0.1",
