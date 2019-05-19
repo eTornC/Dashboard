@@ -8,15 +8,6 @@
             <span>{{screen.name}}</span>
           </div>
           <div class="screen_option">
-            <div @click="viewTurns(screen.id)">
-              <img
-                class="optionIcon"
-                src="../../assets/view.svg"
-                alt="Smi"
-                height="100%"
-                width="100%"
-              >
-            </div>
             <div @click="editScreen(screen.id)">
               <img
                 class="optionIcon"

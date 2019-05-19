@@ -7,13 +7,11 @@ import VueRouter from 'vue-router'
 
 // COMPONENTS
 
-import RowComponent from './components/turnsScreens/RowComponent.vue';
-import ColComponent from './components/turnsScreens/ColComponent.vue';
-import ContentComponent from './components/turnsScreens/ContentComponent.vue';
+import RowComponent from './components/demoLayoutBuild/RowComponent.vue';
+import ColComponent from './components/demoLayoutBuild/ColComponent.vue';
 
 Vue.component('row-component', RowComponent);
 Vue.component('col-component', ColComponent);
-Vue.component('content-component', ContentComponent);
 
 // END COMPONENTS
 

@@ -28,6 +28,8 @@ export default {
     store: '/store',
     config: '/config',
     publicity:'/publicity',
-    publicitys:'/publicitys'
+    publicitys:'/publicities',
+    waitingTurns:'/waitingTurns',
+    actualTurn:'/actualTurn'
   },
 }

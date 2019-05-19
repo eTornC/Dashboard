@@ -5,27 +5,52 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <input
-            type="text"
-            class="form-control"
-            placeholder="nom"
-          >
+          <input type="text" class="form-control" placeholder="nom">
         </div>
       </div>
       <div class="col-md-6">
-          <input
-            type="text"
-            class="form-control"
-            placeholder="descripcion..."
-          >
+        <input type="text" class="form-control" placeholder="descripcion...">
       </div>
     </div>
     <div class="row">
       <h3>
         Exemple:
-        <small
-          class="text-muted"
-        >{ "height": "100", "cols": [ { "height": "100", "width": 12, "rows": [ { "height": "100", "cols": [ { "height": "100", "width": 6, "id": 1 }, { "height": "100", "width": 6, "id": 1 } ] } ] } ] }</small>
+        <small class="text-muted">
+          {
+          "height": "100",
+          "cols": [
+          {
+          "height": "100",
+          "width": 12,
+          "rows": [
+          {
+          "height": "100",
+          "cols": [
+          {
+          "height": "100",
+          "width": 4,
+          "id": 1,
+          "type": "TrunList"
+          },
+          {
+          "height": "100",
+          "width": 4,
+          "id": 1,
+          "type": "TotemStore"
+          },
+          {
+          "height": "100",
+          "width": 4,
+          "id": 1,
+          "type": "Publicity"
+          }
+          ]
+          }
+          ]
+          }
+          ]
+          }
+        </small>
       </h3>
     </div>
     <div class="row">
@@ -227,6 +252,7 @@ export default {
       } else {
         this.newScreenLayout += `"height":"${newLayout.height}",`;
         this.newScreenLayout += `"width":${newLayout.width},`;
+        this.newScreenLayout += `"type":"${newLayout.type}",`;
         this.newScreenLayout += `"id":1`;
         return this.newScreenLayout;
       }

@@ -8,10 +8,19 @@
             <span>{{screen.name}}</span>
           </div>
           <div class="screen_option">
+            <div @click="viewTurns(screen.id)">
+              <img
+                class="optionIcon"
+                src="../../assets/view.svg"
+                alt="Smi"
+                height="100%"
+                width="100%"
+              >
+            </div>
             <div @click="editScreen(screen.id)">
               <img
                 class="optionIcon"
-                src="https://image.flaticon.com/icons/svg/149/149307.svg"
+                src="../../assets/edit.svg"
                 alt="Smi"
                 height="100%"
                 width="100%"
@@ -20,7 +29,7 @@
             <div @click="delScreen(screen.id)">
               <img
                 class="optionIcon"
-                src="https://image.flaticon.com/icons/svg/1345/1345823.svg"
+                src="../../assets/remove.svg"
                 alt="delete"
                 height="100%"
                 width="100%"
@@ -60,7 +69,9 @@ import axios from "axios";
 import urls from "../../api/config.js";
 import edit from "./edit.vue";
 import newScreen from "./newScreen.vue";
-import demoScreen from "./screenDemo.vue";
+//!!!!!!old
+//import demoScreen from "./screenDemo.vue";
+import demoScreen from "../demoLayoutBuild/LayoutGenerator.vue";
 
 export default {
   components: {
@@ -116,7 +127,7 @@ export default {
         });
     },
     delScreen(id) {
-      let url = urls.host + urls.routes.prefix + urls.routes.layout + "/" +id;
+      let url = urls.host + urls.routes.prefix + urls.routes.layout + "/" + id;
       var reference = this;
       axios
         .delete(`${url}`)
@@ -129,8 +140,7 @@ export default {
         });
     },
     getScreenLayout(id) {
-      let url =
-        urls.host + urls.routes.prefix + urls.routes.layout + "/" + id;
+      let url = urls.host + urls.routes.prefix + urls.routes.layout + "/" + id;
       var reference = this;
       console.log(url);
       axios
@@ -219,7 +229,6 @@ export default {
 .screen {
   width: 350px;
   height: 250px;
-  background-color: #e4e4e4;
   position: relative;
   border-radius: 5px;
   overflow: hidden;
@@ -234,7 +243,7 @@ export default {
   display: flex;
 }
 .screen_name {
-  width: 75%;
+  width: 70%;
   height: 100%;
   background-color: #b1ccef;
   display: flex;
@@ -252,10 +261,10 @@ export default {
   background-color: #b1ccef;
   display: flex;
   align-items: center;
-  width: 25%;
+  width: 30%;
 }
 .screen_option div {
-  margin: 0 10px;
+  margin: 0 5px;
   width: 80%;
   height: 80%;
   cursor: pointer;

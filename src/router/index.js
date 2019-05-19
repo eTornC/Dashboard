@@ -4,12 +4,9 @@ import Main from '@/components/Main';
 import Stores from '@/components/stores/StoresComponent';
 import ConfigComponent from '@/components/ConfigComponent.vue';
 import Testing from '@/components/testing/RootTestingComponent';
-import TurnsScreenComponent from '@/components/turnsScreens/TurnsScreenComponent.vue';
 import turnScreenManager from '@/components/managerTurnScreen/screenManager.vue'
 import totemScreenManager from '@/components/managerTotemScreen/screenManager.vue'
 
-import TurnsScreenPanet from '@/components/managerTurnScreen/ScreenManagerPanet.vue';
-import TurnsScreenShow from '@/components/turnsScreens/screenSelect.vue';
 
 import templateTest from '@/components/templateTest.vue';
 import LayoutCreator from '@/components/LayoutCreator/main.vue';
@@ -38,11 +35,6 @@ export default new Router({
       path: '/config',
       name: 'config',
       component: ConfigComponent
-    },
-    {
-      path: '/turns-screens',
-      name: 'turns-screen',
-      component: TurnsScreenComponent
     },
     {
       path: '/turnScreenManager',
