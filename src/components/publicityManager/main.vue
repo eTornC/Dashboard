@@ -40,10 +40,14 @@
               </div>
             </div>
             <div
-              class="card-img-right flex-auto d-none d-md-block viewer"
-              style="width: 700px;height: 250px; background-color:#EEE"
-              v-html="publicity.html"
-            ></div>
+              class="card-img-right  viewer d-flex justify-content-center align-items-center"
+              style="width: 500px; height: 380px; background-color:#EEE"
+            >
+              <div
+                v-html="publicity.html"
+                :style="{ height: publicity.height + '%', width: publicity.width + '%' }"
+              ></div>
+            </div>
           </div>
         </div>
       </div>
@@ -144,7 +148,7 @@ export default {
 .row {
   margin: 0;
 }
-.viewer{
+.viewer {
   overflow: hidden;
 }
 </style>

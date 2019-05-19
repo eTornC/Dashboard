@@ -2,7 +2,7 @@
   <div>
     <div class="col-12 p-5 mb-2">
       <div class="card">
-        <div class="card-header">Featured</div>
+        <div class="card-header">Datos</div>
         <div class="card-body">
           <div class="row">
             <div class="col-6">
@@ -23,33 +23,43 @@
     <div class="row p-4">
       <div class="col-6">
         <div class="row">
-          <div class="col-12 viwerBox">
+          <div class="col-12 viwerBox d-flex justify-content-center align-items-center">
             <div
               class="viwer"
-              :style="{ height: viewr.height + 'px', width: viewr.width + 'px' }"
+              :style="{ height: viewr.height + '%', width: viewr.width + '%' }"
               v-html="htmlCode"
             ></div>
-            <div class="mt-2">
-              <span>height</span>
-              <input type="number" v-model="viewr.height" min="1" max="390">
-              <span>width</span>
-              <input type="number" v-model="viewr.width" min="1" max="700">
-            </div>
           </div>
         </div>
       </div>
       <div class="col-6">
-        <div class="row">
-          <div class="col-12">
-            <div class="code">
-              <textarea class="form-control" v-model="htmlCode" rows="12" placeholder="Code HTML"></textarea>
-            </div>
-          </div>
+        <div class="code">
+          <textarea
+            class="form-control"
+            v-model="htmlCode"
+            style="height:100%"
+            placeholder="Code HTML"
+          ></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="mt-2">
+          <span>height</span>
+          <input type="number" v-model="viewr.height" min="1" max="100">
+          <span>width</span>
+          <input type="number" v-model="viewr.width" min="1" max="100">
         </div>
       </div>
     </div>
     <div class="row d-flex justify-content-center">
-      <button v-on:click="/*$emit('toHome','view')*/" @click="save()" type="button" class="btn btn-primary">Guardar</button>
+      <button
+        v-on:click="/*$emit('toHome', 'view')*/"
+        @click="save()"
+        type="button"
+        class="btn btn-primary"
+      >Guardar</button>
     </div>
   </div>
 </template>
@@ -61,13 +71,13 @@ import swal from "sweetalert2";
 
 export default {
   props: {
-    publicity:Object
+    publicity: Object
   },
   data() {
     return {
       viewr: {
-        height: 300,
-        width: 510
+        height: null,
+        width: null
       },
       name: null,
       description: null,
@@ -78,11 +88,18 @@ export default {
     console.log(this.publicity);
     this.name = this.publicity.name;
     this.description = this.publicity.description;
-    this.htmlCode = this.publicity.html
+    this.htmlCode = this.publicity.html;
+    this.viewr.height = this.publicity.height;
+    this.viewr.width = this.publicity.width;
   },
   methods: {
     save(event) {
-      const url = urls.host + urls.routes.prefix + urls.routes.publicity + "/" + this.publicity.id;
+      const url =
+        urls.host +
+        urls.routes.prefix +
+        urls.routes.publicity +
+        "/" +
+        this.publicity.id;
       console.log(url);
       if (
         this.name != null &&
@@ -93,7 +110,9 @@ export default {
           .put(url, {
             name: this.name,
             description: this.description,
-            html: this.htmlCode
+            html: this.htmlCode,
+            height:this.viewr.height,
+            width:this.viewr.width
           })
           .then(function(response) {
             swal.fire({
@@ -104,7 +123,6 @@ export default {
               timer: 1500
             });
             console.log(response);
-
           })
           .catch(function(error) {
             console.log(error);
@@ -126,11 +144,15 @@ export default {
  <style scoped>
 .viwerBox {
   overflow: hidden;
-  height: 430px;
+  height: 380px;
+  background-color: rgb(133, 135, 141);
+  padding: 0;
 }
 
-.viwer {
+.viwer,
+.code {
   background-color: #bad4ec;
   overflow: hidden;
+  height: 100%;
 }
 </style>
