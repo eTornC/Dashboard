@@ -88,7 +88,6 @@ export default {
 .fila{
     margin: 0;
 }
-
 .turn_list {
   height: 100%;
   width: 100%;

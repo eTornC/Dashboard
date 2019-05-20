@@ -4,8 +4,8 @@
       <img src="../../assets/ticket.svg" width="50px" alt="">
     </div>
     <template v-else-if="mode =='complet'">
-      <div v-if="store" class="card" style="width: 100%;">
-        <img class="card-img-top" :src="store.photo_path" alt="Card image cap">
+      <div v-if="store" class="card" style="width: 70%; ">
+        <img class="card-img-top" style="height:130px;" :src="store.photo_path" alt="Card image cap">
         <div class="card-body p-1">
           <h5>{{store.name}}</h5>
         </div>

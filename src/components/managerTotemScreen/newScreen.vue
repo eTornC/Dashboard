@@ -9,7 +9,12 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <input type="text"  v-model="newName" placeholder="nom" class="form-control text-dark">
+                    <input
+                      type="text"
+                      v-model="newName"
+                      placeholder="nom"
+                      class="form-control text-dark"
+                    >
                   </div>
                 </div>
                 <div class="col-md-6">
@@ -25,39 +30,18 @@
               </div>
             </div>
           </div>
-          <!--div class="form-group row">
-            <div class="col-sm-2">
-              <h1 class="col-form-label">Nom</h1>
-            </div>
-            <div class="col-sm-10">
-              <input
-                required="required"
-                v-model="newName"
-                type="text"
-                class="form-control"
-                placeholder="nuevo nombre"
-              >
-            </div>
-          </div>
-          <div class="form-group row">
-            <div class="col-sm-2">
-              <h1 class="col-form-label">Descripcion</h1>
-            </div>
-            <div class="col-sm-10">
-              <input
-                required="required"
-                v-model="description"
-                type="text"
-                class="form-control"
-                placeholder
-              >
-            </div>
-          </div-->
         </div>
         <div class="template">
-          <div id="option" class="p-3"></div>
+          <layout-generator :mode="'TotemStore'" :jsonConfig="$store.state.jsonLayout"/>
+          <!--div id="option" class="p-3"></div-->
         </div>
       </div>
+      <!-- div class="row">
+        <div class="col-12">
+          <textarea v-model="newScreenLayout" rows="4" cols="50"></textarea>
+          <button @click="getNewLayout()" type="button" class="btn btn-danger">getNewLayout</button>
+        </div>
+      </div -->
       <div class="option">
         <div class="cancel">
           <button @click="$emit('input', 'home');" type="button" class="btn btn-danger">Cancelar</button>
@@ -101,17 +85,20 @@
 
 <script>
 import axios from "axios";
-import urls from "../../api/config.js";
-import demoScreen from "./screenDemo.vue";
-
+import { mapGetters, mapActions } from "vuex";
 import swal from "sweetalert2";
 global.jQuery = require("jQuery");
 var $ = global.jQuery;
 window.$ = $;
 
+import urls from "../../api/config.js";
+import demoScreen from "./screenDemo.vue";
+import LayoutGenerator from "../LayoutBuild/LayoutGenerator";
+
 export default {
   components: {
-    "screen-demo-component": demoScreen
+    "screen-demo-component": demoScreen,
+    "layout-generator": LayoutGenerator
   },
   data() {
     return {
@@ -119,21 +106,20 @@ export default {
       templateSelect: { id: 0 },
       newName: null,
       description: null,
-
       model: "select",
-      StoreListHtmlCode: "",
-      stores: [],
-      sections: [0],
-      storeSelect: [],
-      selectPositionCountID: 0,
-      layoutPositionCountID: 0,
-      newScreenLayout: ""
+      newScreenLayout: "",
+      publicities: []
     };
   },
   mounted: function() {
     this.getTemplates();
   },
+
   methods: {
+    ...mapActions(["jsonLayoutToObject", "setJsonLayout"]),
+    getNewLayout() {
+      this.newScreenLayout = JSON.stringify(this.$store.state.jsonLayout);
+    },
     getTemplates() {
       const url = urls.host + urls.routes.prefix + urls.routes.layouts;
       //console.log(url);
@@ -152,24 +138,10 @@ export default {
     },
     save() {
       if (this.templateSelect && this.newName && this.description) {
-        console.log("save");
-        let storeSelect = [];
-        $(".selecte").each(function(i) {
-          storeSelect[$(this).attr("selectId")] = $(this)
-            .children("option:selected")
-            .val();
-        });
-        this.storeSelect = storeSelect;
-        console.log(this.storeSelect);
-        this.newScreenLayout = "{";
-        this.generateNewScreenLayout(this.templateSelect.layout);
-        this.newScreenLayout += "}";
-        this.layoutPositionCountID = 0;
-
         console.log("Name:" + this.newName);
         console.log("Descripcion:" + this.description);
         console.log(this.newScreenLayout);
-
+        this.getNewLayout();
         let reference = this;
 
         const url = urls.host + urls.routes.prefix + urls.routes.totem_screen;
@@ -179,9 +151,10 @@ export default {
             name: this.newName,
             layout: JSON.parse(this.newScreenLayout),
             description: this.description,
-            type: "TOTEMSCREEN"
+            type: "TURNSCREEN"
           })
           .then(function(response) {
+            console.log(response);
             swal.fire({
               position: "top-end",
               type: "success",
@@ -189,8 +162,8 @@ export default {
               showConfirmButton: false,
               timer: 1500
             });
-            reference.setmode("select");
-            this.router.push("/totemScreenManager");
+            this.setmode("select");
+            $router.push("/totemScreenManager");
           })
           .catch(function(error) {
             console.log(error);
@@ -200,137 +173,16 @@ export default {
       }
     },
     crear() {
-      this.getStores();
       this.model = "edit";
     },
     select(index) {
       console.log(index);
       this.templateSelect = this.templates[index];
+      this.$store.dispatch("setJsonLayout", this.templateSelect.layout);
+      //this.jsonLayoutToObject();
     },
     setmode(mode) {
       this.mode = mode;
-    },
-    getStores() {
-      const url = urls.host + urls.routes.prefix + urls.routes.stores;
-      console.log(url);
-      var reference = this;
-      axios
-        .get(url)
-        .then(res => {
-          reference.stores = res.data;
-          this.createScreenLayout();
-          console.log(res.data);
-        })
-        .catch(err => {
-          console.error(err);
-        });
-    },
-    createScreenLayout() {
-      this.StoreListHtmlCode = this.generateGrid(this.templateSelect.layout);
-      console.log(this.templateSelect.layout);
-      $("#option").html(this.StoreListHtmlCode);
-    },
-    generateGrid(jsonConfig) {
-      this.StoreListHtmlCode = "";
-      if (jsonConfig.rows) {
-        for (let i = 0; i < jsonConfig.rows.length; i++) {
-          this.StoreListHtmlCode += `<div class="row px-0 py-0 mx-0" style="height: ${
-            jsonConfig.rows[i].height
-          }%;border: 0px solid black">
-													${this.generateGrid(jsonConfig.rows[i])}
-												</div>`;
-        }
-
-        return this.StoreListHtmlCode;
-      } else if (jsonConfig.cols) {
-        for (let i = 0; i < jsonConfig.cols.length; i++) {
-          this.StoreListHtmlCode += `<div class="col-md-${
-            jsonConfig.cols[i].width
-          } px-0 py-0 mx-0 " style=" height: ${
-            jsonConfig.cols[i].height
-          }%; border: 0px solid black">
-													${this.generateGrid(jsonConfig.cols[i])}
-												</div>`;
-        }
-        return this.StoreListHtmlCode;
-      } else {
-        return this.crearStoreList(jsonConfig.id);
-      }
-      //console.log(StoreListHtmlCode);
-
-      this.StoreListHtmlCode = StoreListHtmlCode;
-    },
-    crearStoreList(id) {
-      this.StoreListHtmlCode +=
-        '<div class="storelistbox p-3" style=" height: 100%; width: 100%; border: 1px solid black;">';
-      this.StoreListHtmlCode +=
-        `<select selectId="${
-          this.selectPositionCountID
-        }" class="form-control selecte` + '">';
-      for (let i = 0; i < this.stores.length; i++) {
-        if (i == 0) {
-          this.StoreListHtmlCode +=
-            '<option selected value="' +
-            this.stores[i].id +
-            '">' +
-            this.stores[i].name +
-            "</option>";
-        } else {
-          this.StoreListHtmlCode +=
-            '<option value="' +
-             this.stores[i].id +
-            '">' +
-            this.stores[i].name +
-            "</option>";
-        }
-      }
-      this.StoreListHtmlCode += "</select>";
-      this.StoreListHtmlCode += "</div>";
-
-      this.selectPositionCountID++;
-      return this.StoreListHtmlCode;
-      //console.log(this.StoreListHtmlCode);
-    },
-    generateNewScreenLayout(newLayout) {
-      if (newLayout.rows) {
-        this.newScreenLayout += `"height":"${newLayout.height}","width":${
-          newLayout.width
-        },"rows":[`;
-        for (let i = 0; i < newLayout.rows.length; i++) {
-          this.newScreenLayout += "{";
-
-          this.generateNewScreenLayout(newLayout.rows[i]);
-          if (i == newLayout.rows.length - 1) {
-            this.newScreenLayout += "}";
-          } else {
-            this.newScreenLayout += "},";
-          }
-        }
-        this.newScreenLayout += "]";
-        return this.newScreenLayout;
-      } else if (newLayout.cols) {
-        this.newScreenLayout += `"height":"${newLayout.height}","cols":[`;
-        for (let i = 0; i < newLayout.cols.length; i++) {
-          this.newScreenLayout += "{";
-
-          this.generateNewScreenLayout(newLayout.cols[i]);
-          if (i == newLayout.cols.length - 1) {
-            this.newScreenLayout += "}";
-          } else {
-            this.newScreenLayout += "},";
-          }
-        }
-        this.newScreenLayout += "]";
-        return this.newScreenLayout;
-      } else {
-        this.newScreenLayout += `"height":"${newLayout.height}",`;
-        this.newScreenLayout += `"width":${newLayout.width},`;
-        this.newScreenLayout += `"id":${
-          this.storeSelect[this.layoutPositionCountID]
-        }`;
-        this.layoutPositionCountID++;
-        return this.newScreenLayout;
-      }
     }
   }
 };
@@ -421,5 +273,10 @@ export default {
 }
 .select {
   border: 5px solid #007bff;
+}
+.storelistbox {
+  height: 100%;
+  width: 100%;
+  border: 1px solid black;
 }
 </style>

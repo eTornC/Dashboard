@@ -11,7 +11,7 @@
           <input
             type="checkbox"
             v-model="StoreChecked"
-            @click="setOption(); config.type ='TrunList';"
+            @click="setOption(); config.type =mode;"
             value="Store"
           >Store
         </div>

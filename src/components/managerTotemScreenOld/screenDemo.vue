@@ -1,26 +1,25 @@
-/* null */
-
 <template>
-  <div class="main" v-html="StoreListHtmlCode"></div>
+  <div class="main" v-html="StoreListHtmlCode" ></div>
 </template>
 
 
 <script>
 export default {
   props: {
-    jsonConfig: Object,
+    jsonConfig: Object
   },
   data() {
     return {
-      StoreListHtmlCode: null
+        StoreListHtmlCode:null,
     };
   },
   mounted: function() {
-    console.log("json" + this.jsonConfig);
-    this.generateGrid(this.jsonConfig);
+      console.log("json"+this.jsonConfig);
+      this.generateGrid(this.jsonConfig);
+
   },
   methods: {
-    generateGrid(jsonConfig) {
+       generateGrid(jsonConfig) {
       this.StoreListHtmlCode = "";
       if (jsonConfig.rows) {
         for (let i = 0; i < jsonConfig.rows.length; i++) {
@@ -45,52 +44,30 @@ export default {
 
         return this.StoreListHtmlCode;
       } else {
-          // get type in layout
-        return this.buildScreen('TURNLIST');
+        return `
+        <div class="turn_list">
+            <div class="store_name_content">
+                <div class="store_name">
+                </div>
+            </div>
+            <div class="store_turn_content">
+                <div class="store_turn">
+                <ul>
+                    <li> <span class="actual">-------</span>
+                    </li>
+                </ul>
+                <ul>
+                    <li>-------</li>
+                    <li>-------</li>
+                </ul>
+                </div>
+            </div>
+        </div>
+        `;
       }
       //console.log(StoreListHtmlCode);
 
       this.StoreListHtmlCode = StoreListHtmlCode;
-    },
-    buildScreen(type) {
-      switch (type) {
-        case "TURNLIST":
-          return `
-            <div class="turn_list">
-                <div class="store_name_content">
-                    <div class="store_name">
-                    </div>
-                </div>
-                <div class="store_turn_content">
-                    <div class="store_turn">
-                    <ul>
-                        <li> <span class="actual">-------</span>
-                        </li>
-                    </ul>
-                    <ul>
-                        <li>-------</li>
-                        <li>-------</li>
-                    </ul>
-                    </div>
-                </div>
-            </div>
-            `;
-          break;
-          case "TOTEMSTORE":
-          return `
-            <div class="turn_list">
-               TOTEMSTORE
-            </div>
-            `;
-          break;
-          case "PUBLICITY":
-          return `
-            <div class="turn_list">
-                PUBLICITY
-            </div>
-            `;
-          break;
-      }
     }
   }
 };
@@ -98,20 +75,20 @@ export default {
 
 <style scoped>
 .main {
-  height: 100%;
+    height: 100%;
 }
+
 </style>
 
 
 <style>
-.columna {
-  padding: 0 !important;
+.columna{
+    padding: 0 !important;
 }
-.fila {
-  margin: 0;
+.fila{
+    margin: 0;
 }
 
-/* TURN SCREEN */
 .turn_list {
   height: 100%;
   width: 100%;
@@ -131,11 +108,11 @@ export default {
   width: 100%;
   margin: 4px;
   display: flex;
-  text-align: left;
-  align-items: center;
+text-align: left;  align-items: center;
   font-size: 4em;
   border-radius: 5px;
 }
+
 /* turn list*/
 .turn_list .store_turn_content {
   height: 85%;
@@ -149,15 +126,17 @@ export default {
 .turn_list .store_turn ul {
   list-style: none;
   padding: 0px 20px;
-  margin: 0;
+  margin:0;
 }
 .turn_list .store_turn ul li {
   border-bottom: solid 1px black;
   color: grey;
-  margin: 0;
+  margin:0;
 }
 .actual {
   font-size: 0.5rem;
   color: black;
 }
+
+
 </style>

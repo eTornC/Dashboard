@@ -2,22 +2,13 @@
   <div class="app">
     <!--HOME-->
     <div v-if="mode == 'home'" class="screenConten">
-      <div class="screen" v-for="(screen,index) in turnScreen" :key="screen.id">
+      <div class="screen" v-for="screen in turnScreen" :key="screen.id">
         <header>
           <div class="screen_name">
-            <span class="pb-1">{{screen.name}}</span>
+            <span>{{screen.name}}</span>
           </div>
           <div class="screen_option">
-            <div data-toggle="modal" :data-target="'#exampleModal' + index">
-              <img
-                class="optionIcon"
-                src="../../assets/view.svg"
-                alt="Smi"
-                height="100%"
-                width="100%"
-              >
-            </div>
-            <div @click="editScreen(screen)">
+            <div @click="editScreen(screen.id)">
               <img
                 class="optionIcon"
                 src="../../assets/edit.svg"
@@ -38,34 +29,7 @@
           </div>
         </header>
         <div class="content">
-          <screen-demo-component :mode="'min'" :jsonConfig="screen.layout"/>
-        </div>
-        <!-- Modal -->
-        <div
-          class="modal fade bd-example-modal-lg"
-          :id="'exampleModal' + index"
-          tabindex="-1"
-          role="dialog"
-          aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
-        >
-          <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">{{screen.name}}</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <screen-demo-component :mode="'complet'" :jsonConfig="screen.layout"/>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-              </div>
-            </div>
-          </div>
+          <screen-demo-component :jsonConfig="screen.layout"/>
         </div>
       </div>
       <div class="turnScreenBottom">
@@ -78,7 +42,7 @@
     <div class="main_edit" v-else-if="mode == 'edit'">
       <edit-component
         v-on:input="mode = $event; getScreen();"
-        :screen="this.screenSelect"
+        :id="this.screenId"
         :mode="this.mode"
       />
     </div>
@@ -86,7 +50,7 @@
     <create-component
       v-else-if="mode == 'create'"
       v-on:input="mode = $event; getScreen();"
-      :mode="'TotemStore'"
+      :mode="this.mode"
     />
   </div>
 </template>
@@ -96,9 +60,7 @@ import axios from "axios";
 import urls from "../../api/config.js";
 import edit from "./edit.vue";
 import newScreen from "./newScreen.vue";
-//!!!!!!old
-//import demoScreen from "./screenDemo.vue";
-import demoScreen from "../demoLayoutBuild/LayoutGenerator.vue";
+import demoScreen from "./screenDemo.vue";
 
 export default {
   components: {
@@ -113,7 +75,7 @@ export default {
       edit_screen: null,
       StoreListHtmlCode: "",
       stores: [],
-      screenSelect: null
+      screenId: null
     };
   },
   mounted: function() {
@@ -154,7 +116,7 @@ export default {
         });
     },
     delScreen(id) {
-      let url = urls.host + urls.routes.prefix + urls.routes.layout + "/" + id;
+      let url = urls.host + urls.routes.prefix + urls.routes.layout + "/" +id;
       var reference = this;
       axios
         .delete(`${url}`)
@@ -167,7 +129,8 @@ export default {
         });
     },
     getScreenLayout(id) {
-      let url = urls.host + urls.routes.prefix + urls.routes.layout + "/" + id;
+      let url =
+        urls.host + urls.routes.prefix + urls.routes.layout + "/" + id;
       var reference = this;
       console.log(url);
       axios
@@ -204,10 +167,10 @@ export default {
         });
     },
 
-    editScreen(screen) {
+    editScreen(id) {
       this.setmode("edit");
-      this.screenSelect = screen;
-      this.$store.dispatch("setJsonLayout", this.screenSelect.layout);
+      this.screenId = id;
+      console.log(id);
     },
     createScreen() {
       this.setmode("create");
@@ -256,6 +219,7 @@ export default {
 .screen {
   width: 350px;
   height: 250px;
+  background-color: #e4e4e4;
   position: relative;
   border-radius: 5px;
   overflow: hidden;
@@ -303,10 +267,5 @@ export default {
 }
 .optionIcon {
   height: 100%;
-}
-
-/*MODAL*/
-.modal-body {
-  height: 400px;
 }
 </style>
