@@ -1,6 +1,6 @@
 <template>
       <div class="col-md-12" style="height:100%" >
-        <row-component :mode="mode" :config="jsonConfig" />
+        <row-component-select :mode="mode" :config="jsonConfig" />
       </div>
 </template>
 

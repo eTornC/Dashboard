@@ -1,6 +1,6 @@
 <template>
       <div class="col-md-12" style="height:100%" >
-        <row-component :mode="mode" :config="jsonConfig" />
+        <input type="text" v-model="$store.state.count" name="" id="">
       </div>
 </template>
 

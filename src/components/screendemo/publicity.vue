@@ -1,6 +1,12 @@
 <template>
-  <div class="main">
-      <div class="publicity" v-if="publicity" v-html="publicity.html" > </div>
+  <div class="main d-flex align-items-center justify-content-center">
+    <div v-if="mode =='min'">
+      <img src="../../assets/publicity.svg" width="50px" alt>
+    </div>
+    <template v-else-if="mode =='complet'">
+      <div class="publicity" v-if="publicity" v-html="publicity.html"></div>
+    </template>
+    <div v-else>mode Error</div>
   </div>
 </template>
 
@@ -12,7 +18,8 @@ import config from "../../api/config";
 export default {
   props: {
     jsonConfig: Object,
-    id:Number
+    id: Number,
+    mode: String
   },
   data() {
     return {
@@ -23,8 +30,13 @@ export default {
     this.getPublicity();
   },
   methods: {
-    getPublicity(){
-      const url = config.host + config.routes.prefix + config.routes.publicity+"/"+this.id;
+    getPublicity() {
+      const url =
+        config.host +
+        config.routes.prefix +
+        config.routes.publicity +
+        "/" +
+        this.id;
       axios
         .get(url)
         .then(res => {
@@ -39,13 +51,12 @@ export default {
 </script>
 
 <style scoped>
-.main{
+.main {
   height: 100%;
   width: 100%;
 }
-.publicity{
-   height: 100%;
+.publicity {
+  height: 100%;
   width: 100%;
 }
-
 </style>

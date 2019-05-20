@@ -1,14 +1,14 @@
 <template>
   <div :style="'height:'+ config.height +'%'+';border: 1px solid black'" v-if="config.rows">
     <template v-for="(row, index) in config.rows">
-      <row-component :config="row" :key="index"/>
+      <row-component :mode="mode" :config="row" :key="index"/>
     </template>
   </div>
   <div v-else :style="'height:'+ config.height+'%' +';border: 1px solid black'" class="px-0 py-0">
     <div class="turnBox">
-      <publicit-demo :id="config.id" v-if="config.type == 'Publicity'"/>
-      <totemStore-demo :id="config.id" v-else-if="config.type == 'TotemStore'"/>
-      <turnList-demo :id="config.id" v-else-if="config.type == 'TrunList'"/>
+      <publicit-demo :id="config.id" :mode="mode" v-if="config.type == 'Publicity'"/>
+      <totemStore-demo :id="config.id" :mode="mode" v-else-if="config.type == 'TotemStore'"/>
+      <turnList-demo :id="config.id" :mode="mode" v-else-if="config.type == 'TrunList'"/>
       <span v-else>Layot type Error</span>
     </div>
   </div>
@@ -22,7 +22,8 @@ import turnListDemo from "../screendemo/turnList.vue";
 
 export default {
   props: {
-    config: Object
+    config: Object,
+    mode: String
   },
   components: {
     "publicit-demo": publicitDemo,

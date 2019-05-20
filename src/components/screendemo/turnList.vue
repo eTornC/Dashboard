@@ -1,15 +1,21 @@
 <template>
-  <div class="main">
-    <div v-if="store" class="card" style="width: 100%; height: 100%">
-      <h5 class="store_name m-1">{{store.name}}</h5>
-      <div class="card-body p-1">
-        <h5 v-if="actualTurn.error"> No Turn</h5>
-        <span v-else :key="index" v-for="(turn,index) in actualTurn">T{{turn.number}}</span>
-        <ul class=" p-0 waitingTurns">
-          <li :key="index" v-for="(turn,index) in waitingTurns">T{{turn.number}}</li>
-        </ul>
-      </div>
+  <div class="main d-flex align-items-center justify-content-center">
+    <div v-if="mode =='min'">
+      <img src="../../assets/turn_list.svg" width="50px" alt>
     </div>
+    <template v-else-if="mode =='complet'">
+      <div v-if="store" class="card" style="width: 100%; height: 100%">
+        <h5 class="store_name m-1">{{store.name}}</h5>
+        <div class="card-body p-1">
+          <h5 v-if="!actualTurn">No Turn</h5>
+          <h5  v-else :key="index" v-for="(turn,index) in actualTurn">> T{{turn.number}}</h5>
+          <ul class="p-0 waitingTurns">
+            <li :key="index" v-for="(turn,index) in waitingTurns">T{{turn.number}}</li>
+          </ul>
+        </div>
+      </div>
+    </template>
+    <div v-else>mode Error</div>
   </div>
 </template>
 
@@ -21,12 +27,13 @@ import config from "../../api/config";
 export default {
   props: {
     jsonConfig: Object,
-    id: Number
+    id: Number,
+    mode: String
   },
   data() {
     return {
       store: null,
-      actualTurn: null,
+      actualTurn: [],
       waitingTurns: null
     };
   },
@@ -36,6 +43,11 @@ export default {
     this.getWaitingTurn();
   },
   methods: {
+    refresh(){
+      this.getStore();
+      this.getActualTurn();
+      this.getWaitingTurn();
+    },
     getStore() {
       const url =
         config.host +
@@ -61,13 +73,16 @@ export default {
         "/" +
         this.id +
         config.routes.actualTurn;
-      console.log(url);
+      //console.log(url);
 
       axios
         .get(url)
         .then(res => {
           this.actualTurn = res.data;
-          console.log(this.actualTurn);
+          //console.log(this.actualTurn);
+          if(res.data.error){
+            this.actualTurn = false;
+          }
         })
         .catch(err => {
           console.log("Fail");
@@ -106,6 +121,6 @@ export default {
 .actualTurn {
 }
 .waitingTurns {
-  list-style-type:none;
+  list-style-type: none;
 }
 </style>

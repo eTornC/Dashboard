@@ -13,6 +13,9 @@ import LayoutCreator from '@/components/LayoutCreator/main.vue';
 
 import publicityManager from '@/components/publicityManager/main.vue';
 
+import myTest from '@/components/testArea/main.vue';
+
+
 export default new Router({
   //mode: 'history',
   routes: [
@@ -61,6 +64,11 @@ export default new Router({
       name: 'publicityManager',
       component: publicityManager
     },
+    {
+      path: '/mytest',
+      name: 'mytest',
+      component: myTest
+    }
     /*{
       path: '/turns-screens-panet',
       name: 'turns-screen-panet',
