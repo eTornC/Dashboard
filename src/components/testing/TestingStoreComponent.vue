@@ -59,6 +59,7 @@ export default {
 	methods: {
 		nextTurn() {
 			const url = urls.host + urls.routes.prefix + urls.routes.store + '/' + this.store.id + '/nextTurn';
+			console.log(url)
 
 			axios.post(url)
 				.then(res => {
@@ -75,7 +76,6 @@ export default {
 		},
 		updateActualTurn() {
 			const url = urls.host + urls.routes.prefix + urls.routes.store + '/' + this.store.id + '/actualTurn';
-		
 			axios.get(url)
 				.then(res => {
 					if (res.data.error) {
@@ -90,9 +90,10 @@ export default {
 		},
 		normalTurn() {
 
-			debugger;
 
-			const url = urls.host + urls.routes.prefix + urls.routes.store + '/' + this.store.id + '/turn';
+			const url = urls.host + urls.routes.prefix + urls.routes.store + '/' + this.store.id + urls.routes.turn;
+			
+				console.log(url)
 
 			axios.post(url)
 				.then(res => {

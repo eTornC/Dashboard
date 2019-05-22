@@ -30,6 +30,7 @@ export default {
     publicity:'/publicity',
     publicitys:'/publicities',
     waitingTurns:'/waitingTurns',
-    actualTurn:'/actualTurn'
+    actualTurn:'/actualTurn',
+    turn:'/turn'
   },
 }

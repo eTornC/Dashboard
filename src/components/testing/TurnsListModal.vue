@@ -56,14 +56,14 @@ export default {
         downloadTurns() {
 
             const url = urls.host + urls.routes.prefix 
-                        + urls.routes.store + '/' + this.store.id + '/turns';
-
+                        + urls.routes.store + '/' + this.store.id + urls.routes.waitingTurns;
             axios.get(url)
                 .then(res => {
 
                     res.data.forEach(item => {
+                        console.log(item)
                         switch (item.type) {
-                            case 'NORMAL':
+                            case 'normal':
                                 this.normalTurns.push(item);
                                 break;
                             case 'VIP':
