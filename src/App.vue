@@ -5,7 +5,7 @@
 				eTorn!
 			</div>
 			<a class="nav-link active text-white" @click="$router.push({ name: 'stores' }).href">Parades</a>
-			<a class="nav-link text-white" href="/">Dades</a>
+			<a class="nav-link text-white" @click="$router.push('/dashboard')">Dades</a>
       <a class="nav-link text-white" @click="$router.push({ name: 'test' }).href">Testing</a>
       <a class="nav-link text-white" @click="$router.push('/Config')">Configuració</a>
       <a class="nav-link text-white" @click="$router.push('/turnScreenManager')">Gestio Pantalles torns</a>
@@ -16,6 +16,8 @@
     
     <router-view class="" />
   </div>
+
+  
 </template>
 
 <script>

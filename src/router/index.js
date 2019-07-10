@@ -1,6 +1,7 @@
 import Router from 'vue-router';
 
 import Main from '@/components/Main';
+import DashboardComponent from '@/components/dashboard/DashboardComponent';
 import Stores from '@/components/stores/StoresComponent';
 import ConfigComponent from '@/components/ConfigComponent.vue';
 import Testing from '@/components/testing/RootTestingComponent';
@@ -23,6 +24,11 @@ export default new Router({
       path: '/',
       name: 'main',
       component: Main
+    },
+    {
+      path: '/dashboard',
+      name: 'dashboard',
+      component: DashboardComponent
     },
     {
       path: '/stores',
