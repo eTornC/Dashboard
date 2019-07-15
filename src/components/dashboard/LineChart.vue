@@ -111,7 +111,10 @@ export default {
                 return data.labels[tooltipItem[0].index];
               },
               label(tooltipItem, data) {
-                return data.datasets[0].data[tooltipItem.index] + ' simulations.';
+                return '';
+              },
+              afterLabel(tooltipItem, data) {
+                return data.datasets[0].data[tooltipItem.index] + ' torns.';
               }
             },
             backgroundColor: 'rgba(0,0,0,0.7)',

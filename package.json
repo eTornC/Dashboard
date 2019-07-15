@@ -12,9 +12,12 @@
   "dependencies": {
     "axios": "^0.18.0",
     "chart.js": "^2.8.0",
+    "daterangepicker": "^3.0.5",
     "jQuery": "^1.7.4",
+    "jquery": "^3.4.1",
     "jsdom": "^14.0.0",
     "location": "0.0.1",
+    "moment": "^2.24.0",
     "navigator": "^1.0.1",
     "vue": "^2.5.2",
     "vue-emit": "^1.0.1",

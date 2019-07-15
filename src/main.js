@@ -31,7 +31,17 @@ Vue.use(Vuex)
 
 import store from './components/LayoutManager/store'
 
-Vue.config.productionTip = false
+try {
+  window.$ = window.jQuery = require("jquery");
+} catch (e) {}
+
+require("daterangepicker");
+
+window.moment = require('moment');
+window.moment.locale('fr');
+
+Vue.config.productionTip = false;
+
 new Vue({
   el: '#app',
   router,
