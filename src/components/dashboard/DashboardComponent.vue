@@ -64,6 +64,8 @@ import LineChart from './LineChart';
 import DropdownButton from './DropdownButton';
 import DateRangePicker from './DateRangePicker';
 
+import urls from "../../api/config.js";
+
 const axios = require('axios');
 
 export default {
@@ -125,7 +127,7 @@ export default {
 
 	methods: {
 		downloadStores(cb) {
-			axios.get('http://localhost/stores')
+			axios.get(urls.host + '/stores')
 				.then(res => {
 					this.stores = res.data.map(store => store.name);
 					cb();
@@ -146,13 +148,13 @@ export default {
 			this.downloading = false;
 		},
 		downloadTurnsNumber() {
-			return axios.get('http://localhost/turns-number' + this.params);
+			return axios.get( urls.host + '/turns-number' + this.params);
 		},
 		downloadTurnsPerType() {
-			return axios.get('http://localhost/turns-per-type' + this.params);;
+			return axios.get(urls.host + '/turns-per-type' + this.params);;
 		},
 		downloadTimelineTurns() {
-			return axios.get('http://localhost/turns-by-day' + this.params);;
+			return axios.get(urls.host + '/turns-by-day' + this.params);;
 		},
 		onSelectStore(ev) {
 			this.actualStore = ev.item;
